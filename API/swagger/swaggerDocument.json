@@ -1,0 +1,39 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "APP-VIET-NHAT",
+      "description": "",
+      "version": "1.0"
+    },
+    "produces": ["application/json"],
+    "schemes":["/api/"],
+    "paths": {
+      "/apilogin": {
+          "tag":"viet",
+        "post": {
+          "x-swagger-router-controller": "home",
+          "operationId": "index",
+          "tags": ["/User"],
+          "description": "Login nhe",
+          "parameters": [
+        { "name": "profileId", "in": "input", "required": true, "type": "string" },
+        { "name": "file", "in": "formData", "type": "file", "required": "true" }],
+          "responses": {
+              "200":{
+                "description":"oke"
+              }
+          }
+        }
+      },
+      "/bar": {
+         "get": {
+           "x-swagger-router-controller": "bar",
+           "operationId": "impossible",
+           "tags": ["/test"],
+           "description": "",
+           "parameters": [],
+           "responses": {}
+         }
+       }
+    }
+ }
