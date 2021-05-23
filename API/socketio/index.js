@@ -1,11 +1,12 @@
 const { db, error } = require("../helper");
 const { User } = db;
 const room = require("./room");
+
 class socket {
   constructor() {
     this.sockett = null;
   }
-  
+
   static initSocket(io) {
     this.io = io;
     io.on("connection", async (socket) => {
@@ -42,7 +43,7 @@ class socket {
     });
   }
   static pushNotiToUser(socketId, data) {
-    console.log("push notify ne",data);
+    console.log("push notify ne", data);
 
     io.to(socketId).emit("NOTIFY_USER", data);
   }
@@ -87,7 +88,7 @@ class socket {
   static async startGame(room_user, me, friend) {
     try {
       const findRoom = await room.findRoom(room_user);
-      console.log(findRoom,room_user)
+      console.log(findRoom, room_user);
       if (!findRoom) {
         console.log("loi moi het han");
         throw "Lời Mời HẾT HẠN";
@@ -120,12 +121,12 @@ class socket {
         this.COUNT_DOW({ ...data, counter });
         counter--;
         if (counter === 0) {
-          this.END_GAME(data)
+          this.END_GAME(data);
           clearInterval(Coundow);
         }
       }, 1000);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       this.ERROR_MESS(me.socketId, err);
     }
   }
@@ -144,19 +145,20 @@ class socket {
       };
       await room.endRoom(data.room, data.user1.id);
     }
-    if(data.user1.score === data.user2.score){
+    if (data.user1.score === data.user2.score) {
       result = {
         user2: { ...data.user2, win: true },
         user1: { ...data.user1, win: true },
       };
-    } if(data.user1.score < data.user2.score) {
+    }
+    if (data.user1.score < data.user2.score) {
       result = {
         user2: { ...data.user2, win: true },
         user1: { ...data.user1, win: false },
       };
       await room.endRoom(data.room, data.user2.id);
     }
-    console.log("EndGAME",result)
+    console.log("EndGAME", result);
     io.to(data.room).emit("END_GAME", result);
   }
   static async REJECT(id) {
