@@ -116,6 +116,10 @@ const userSchema = new mongoose.Schema({
       course: 0,
     },
   },
+  idRoom: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Room",
+  },
 });
 userSchema.index({ username: 1 }, { unique: true });
 const User = mongoose.model("User", userSchema);
