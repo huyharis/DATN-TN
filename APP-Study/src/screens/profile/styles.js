@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     height: DEVICE_WIDTH - 60,
     // width:'100%',
     // height: DEVICE_WIDTH - 60,
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    // backgroundColor: "rgba(255, 255, 255, 0.5)",
     borderRadius: 40,
     padding: 22,
     marginTop: 100,

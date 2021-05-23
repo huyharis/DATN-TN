@@ -23,7 +23,7 @@ import { ListItem, Input, Avatar } from "react-native-elements";
 import { TabView, SceneMap } from "react-native-tab-view";
 import SecondRoute from "./request";
 import { onStartGame } from "../../services/socketIO";
-import { war, ic_arrow_back } from "../../assets";
+import { war, ic_arrow_back, message_icon } from "../../assets";
 import LoadingPage from "../loading";
 import { getErrorMessage } from "../../untils/helper";
 import ModalBox from "../../components/ModalBox";
@@ -35,7 +35,7 @@ import Header from "../../components/header";
 import Button from "../../components/Button";
 import ModalWar from "./modalWar";
 import SearchRoute from "./search";
-import RequestFriend from './request';
+import RequestFriend from "./request";
 
 import styles from "./styles";
 
@@ -69,30 +69,31 @@ const FriendsScreen = ({ navigation }) => {
       bottomDivider
       // chevron
       rightTitle={
-        <TouchableOpacity onPress={() => inviteWar(item._id)}>
-          <Image source={war} style={styles.war} resizeMode="contain" />
+        <TouchableOpacity onPress={() => chatRoom()}>
+          <Icon name="comment" size={15} style={styles.war} />
         </TouchableOpacity>
       }
     />
   );
 
-  const inviteWar = async (id) => {
-    setLoading(true);
-    try {
-      const response = await WebService.inviteFriend({ friend_id: id });
-      if (response) {
-        setRoomId(response);
-        setIsVisible(true);
-        const receiver = friends.filter((item) => item._id === id);
-        setReceiver(receiver[0]);
-      }
-    } catch (error) {
-      showMessage({
-        message: getErrorMessage(error),
-        type: "danger",
-      });
-    }
-    setLoading(false);
+  const chatRoom = () => {
+    navigation.navigate("Chat");
+    // setLoading(true);
+    // try {
+    //   const response = await WebService.inviteFriend({ friend_id: id });
+    //   if (response) {
+    //     setRoomId(response);
+    //     setIsVisible(true);
+    //     const receiver = friends.filter((item) => item._id === id);
+    //     setReceiver(receiver[0]);
+    //   }
+    // } catch (error) {
+    //   showMessage({
+    //     message: getErrorMessage(error),
+    //     type: "danger",
+    //   });
+    // }
+    // setLoading(false);
   };
 
   const getList = async () => {
@@ -125,8 +126,8 @@ const FriendsScreen = ({ navigation }) => {
   );
 
   const ThirdRoute = () => {
-    console.log('requestFriends', requestFriends, !requestFriends);
-    
+    console.log("requestFriends", requestFriends, !requestFriends);
+
     return requestFriends ? (
       <FlatList
         keyExtractor={keyExtractor}
@@ -136,12 +137,14 @@ const FriendsScreen = ({ navigation }) => {
         onRefresh={() => onRefresh()}
         onEndReachedThreshold={0}
       />
-    ) :  <Text style={{textAlign: 'center'}}>Bạn không có lời mời nào</Text>
+    ) : (
+      <Text style={{ textAlign: "center" }}>Bạn không có lời mời nào</Text>
+    );
   };
 
   const addFriend = (id, request) => {
     setLoading(true);
-    setIsRefreshing(true)
+    setIsRefreshing(true);
     WebService.addFriend({ friend_id: id, is_request: request })
       .then(async (data) => {
         search(text);
@@ -158,7 +161,7 @@ const FriendsScreen = ({ navigation }) => {
         });
         setLoading(false);
       });
-    setIsRefreshing(false)
+    setIsRefreshing(false);
   };
 
   const renderItemRequest = ({ item }) => {
@@ -203,8 +206,6 @@ const FriendsScreen = ({ navigation }) => {
   const onRefresh = () => {
     getList();
   };
-
- 
 
   const handleStart = (response) => {
     if (response) {

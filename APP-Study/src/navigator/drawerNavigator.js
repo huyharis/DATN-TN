@@ -1,81 +1,88 @@
-import React from 'react';
-import {createAppContainer} from 'react-navigation';
-import {createDrawerNavigator} from 'react-navigation-drawer';
-import {createStackNavigator} from 'react-navigation-stack';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import React from "react";
+import { createAppContainer } from "react-navigation";
+import { createDrawerNavigator } from "react-navigation-drawer";
+import { createStackNavigator } from "react-navigation-stack";
+import Icon from "react-native-vector-icons/FontAwesome5";
 // import Settings from './src/components/screens/Settings'; //Tab Nav
-import BottomTabNavigator from './bottomTabNavigator';
-import Logout from '@screens/logout'
-import Drawer from '@screens/drawer'
-import ProfileScreen from '@screens/profile';
-import LeaderBoardScreen from '@screens/leaderBoard';
-import Challenge from '../screens/challenge';
-import DashBoardScreen from '../screens/dash-board'
-import NotificationList from '../screens/notification-list';
-import FriendsScreen from '../screens/friends/friend';
-import GetCourse from '../screens/getCourse';
-import StudyTopicScreen from '../screens/studyToTopic';
-import MemmoryCard from '../screens/games/memmoryCard'
-import ChoiceTestScreen from '../screens/course-test/choice-test';
-import Lesson from '../screens/lesson';
-import AlphabetScreen from '../screens/alphabet'
-import WritingTestScreen from '../screens/course-test/writing-test';
-import MemoryCardScreen from '../screens/getCourse/memoryCard';
-import HistoryScreen from '../screens/history';
-import MyTopicScreen from '../screens/studyToTopic/myTopic'
-import AddTopicScreen from '../screens/studyToTopic/addTopic';
-import PronounceScreen from '../screens/pronounce';
-import FinishTestScreen from '../screens/course-test/finishTest';
+import BottomTabNavigator from "./bottomTabNavigator";
+import Logout from "@screens/logout";
+import Drawer from "@screens/drawer";
+import ProfileScreen from "@screens/profile";
+import LeaderBoardScreen from "@screens/leaderBoard";
+import Challenge from "../screens/challenge";
+import DashBoardScreen from "../screens/dash-board";
+import NotificationList from "../screens/notification-list";
+import FriendsScreen from "../screens/friends/friend";
+import GetCourse from "../screens/getCourse";
+import StudyTopicScreen from "../screens/studyToTopic";
+import MemmoryCard from "../screens/games/memmoryCard";
+import ChoiceTestScreen from "../screens/course-test/choice-test";
+import Lesson from "../screens/lesson";
+import AlphabetScreen from "../screens/alphabet";
+import WritingTestScreen from "../screens/course-test/writing-test";
+import MemoryCardScreen from "../screens/getCourse/memoryCard";
+import HistoryScreen from "../screens/history";
+import MyTopicScreen from "../screens/studyToTopic/myTopic";
+import AddTopicScreen from "../screens/studyToTopic/addTopic";
+import PronounceScreen from "../screens/pronounce";
+import FinishTestScreen from "../screens/course-test/finishTest";
+import ChatScreen from "../screens/friends/chatSceen";
 
 const DrawerNavigatorConfig = {
-  initialRouteName: 'DashBoard',
-  drawerPosition: 'left',
+  initialRouteName: "DashBoard",
+  drawerPosition: "left",
   contentComponent: Drawer,
-  drawerType:'back'
+  drawerType: "back",
 };
 const config = {
   mode: "modal",
-  headerMode: "none"
+  headerMode: "none",
 };
 
-const TopicStackNavigator = createStackNavigator({
-  ListTopic: {
-    screen: StudyTopicScreen
+const TopicStackNavigator = createStackNavigator(
+  {
+    ListTopic: {
+      screen: StudyTopicScreen,
+    },
+    MyTopicScreen: {
+      screen: MyTopicScreen,
+    },
+    AddTopicScreen: {
+      screen: AddTopicScreen,
+    },
   },
-  MyTopicScreen: {
-    screen: MyTopicScreen
-  },
-  AddTopicScreen: {
-    screen: AddTopicScreen
-  }
-}, config)
+  config
+);
 
-const CourseStackNavigator = createStackNavigator({
-  GetCourse: {
-    screen: GetCourse
+const CourseStackNavigator = createStackNavigator(
+  {
+    GetCourse: {
+      screen: GetCourse,
+    },
+    MemmoryCard: {
+      screen: MemmoryCard,
+    },
+    ChoiceTestScreen: {
+      screen: ChoiceTestScreen,
+    },
+    WritingTestScreen: {
+      screen: WritingTestScreen,
+    },
+    MemoryCardScreen: {
+      screen: MemoryCardScreen,
+    },
+    HistoryScreen: {
+      screen: HistoryScreen,
+    },
+    PronounceScreen: {
+      screen: PronounceScreen,
+    },
+    FinishTestScreen: {
+      screen: FinishTestScreen,
+    },
   },
-  MemmoryCard: {
-    screen: MemmoryCard
-  },
-  ChoiceTestScreen: {
-    screen: ChoiceTestScreen
-  },
-  WritingTestScreen: {
-    screen: WritingTestScreen
-  },
-  MemoryCardScreen: {
-    screen: MemoryCardScreen
-  },
-  HistoryScreen: {
-    screen: HistoryScreen
-  },
-  PronounceScreen: {
-    screen: PronounceScreen
-  },
-  FinishTestScreen: {
-    screen: FinishTestScreen
-  }
-}, config)
+  config
+);
 
 export default createDrawerNavigator(
   {
@@ -83,39 +90,42 @@ export default createDrawerNavigator(
     //   screen: BottomTabNavigator,
     // },
     Profile: {
-      screen: ProfileScreen
+      screen: ProfileScreen,
     },
     LeaderBoard: {
-      screen: LeaderBoardScreen
+      screen: LeaderBoardScreen,
     },
     Logout: {
       screen: Logout,
     },
     Challenge: {
-      screen: Challenge
+      screen: Challenge,
     },
     DashBoard: {
-      screen: DashBoardScreen
+      screen: DashBoardScreen,
     },
     Notifications: {
-      screen: NotificationList
+      screen: NotificationList,
     },
     Friends: {
-      screen: FriendsScreen
+      screen: FriendsScreen,
     },
     Course: {
-      screen: CourseStackNavigator
+      screen: CourseStackNavigator,
     },
     Topic: {
       screen: TopicStackNavigator,
     },
     Lesson: {
-      screen: Lesson
+      screen: Lesson,
     },
     Alphabet: {
-      screen: AlphabetScreen
+      screen: AlphabetScreen,
     },
-    
+    Chat: {
+      screen: ChatScreen,
+    },
+
     // MyTopicScreen: {
     //   screen: MyTopicScreen
     // },
@@ -123,5 +133,5 @@ export default createDrawerNavigator(
     //   screen: AddTopicScreen
     // }
   },
-  DrawerNavigatorConfig,
+  DrawerNavigatorConfig
 );

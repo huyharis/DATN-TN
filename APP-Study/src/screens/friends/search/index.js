@@ -44,8 +44,7 @@ const SearchRoute = (props) => {
     //   getList();
     //   return;
     // }
-    WebService
-      .searchFriend(value)
+    WebService.searchFriend(value)
       .then(async (data) => {
         console.log(data);
 
@@ -102,6 +101,8 @@ const SearchRoute = (props) => {
                     <TouchableOpacity onPress={() => addFriend(item._id, true)}>
                       <Icon name="user-plus" size={14} color="black" />
                     </TouchableOpacity>
+                  ) : item?.type == "isRequest" ? (
+                    <Icon name="angellist" size={14} color="black" />
                   ) : (
                     ""
                   )

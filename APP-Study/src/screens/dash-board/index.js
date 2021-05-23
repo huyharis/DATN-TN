@@ -41,18 +41,26 @@ import {
   ig_challenge,
 } from "../../assets";
 
-import { handleError } from "../../services/socketIO";
+import {
+  handleError,
+  pushNotification,
+  socketInitial,
+  socketStart,
+  Socket_Io,
+} from "../../services/socketIO";
 import colors from "../../configs/colors";
 import Storage from "../../storages";
 import webservice from "../../services";
 import styles from "./styles";
+import { View } from "react-native";
 
 const DashBoardScreen = ({ navigation }) => {
   const [user, setUser] = useState(null);
+  const [notify, setNotify] = useState(0);
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const onSelectItem = id => {
+  const onSelectItem = (id) => {
     console.log(id);
 
     navigation.navigate("GetCourse", {
@@ -106,7 +114,7 @@ const DashBoardScreen = ({ navigation }) => {
               color={"#2C6694"}
               indeterminate={false}
               style={styles.progress}
-              formatText={() => `${item.complete.toFixed(2)}%` }
+              formatText={() => `${item.complete.toFixed(2)}%`}
               textStyle={styles.textStyle}
             />
             {/* <Text style={styles.textName}>{item.title}</Text>
@@ -152,9 +160,18 @@ const DashBoardScreen = ({ navigation }) => {
     setUser(user);
     getPublicCourse();
   }, []);
+  useEffect(async () => {
+    const socket = await Socket_Io();
+    console.log("🚀 ~ file: index.js ~ line 165 ~ useEffect ~ socket", socket);
 
-  console.log('courses', courses);
-  
+    socket.on("NOTIFY_USER", (message) => {
+      const count = notify + 1;
+      console.log("🚀 ~ file: index.js ~ line 169 ~ socket.on ~ count", count);
+      setNotify(count);
+      console.log("adsdddddddddddddddddddddddddddd", message);
+    });
+  }, []);
+  console.log("counotifynotifyrses", notify);
 
   return (
     <ViewVertical style={styles.container}>
@@ -172,7 +189,12 @@ const DashBoardScreen = ({ navigation }) => {
         actionRight={[
           {
             // component: <BadgedIcon type="ionicon" name="md-notifications" color={"#fff"} style={styles.icon}/>,
-            component: <Image source={ic_notifications} style={styles.icon} />,
+            component: (
+              <View>
+                <Text>{notify}</Text>
+                <Image source={ic_notifications_none} style={styles.icon} />
+              </View>
+            ),
             action: () => navigation.navigate("Notifications"),
             styleTouchable: {
               top: 9,

@@ -1,5 +1,7 @@
 import socketIO from "socket.io-client";
 import { hostname } from "./host";
+import Storage from "@storages";
+
 // Initialize Socket IO:
 // const socket = socketIO(SERVER_URL, {
 //   forceNew: true,
@@ -10,7 +12,8 @@ let socket;
 
 export const socketInitial = (id) => {
   // const SERVER_URL = `https://22f057b741fb.ngrok.io?user_id=${id}`;
-  const SERVER_URL = `${hostname}?user_id=${id}`;
+  // const SERVER_URL = `${hostname}?user_id=${id}`;
+  const SERVER_URL = `${hostname}`;
 
   console.log("socketInitial", id);
 
@@ -25,15 +28,40 @@ export const socketInitial = (id) => {
   return socket;
 };
 
-// const socket = socketIO(SERVER_URL, {
-//     'reconnection': true,
-//     'reconnectionDelay': 100,
-//     'reconnectionAttempts': Infinity,
-//     transports: ['websocket'],
-//     forceNew: true
-//   })
+export const Socket_Io = async (id) => {
+  const user = await Storage.getUserInfo();
+  // const SERVER_URL = `https://22f057b741fb.ngrok.io?user_id=${id}`;
+  const SERVER_URL = `${hostname}?user_id=${user.id}`;
 
-// export the function to connect and use socket IO:
+  console.log("socketInitial", id);
+
+  socket = socketIO(SERVER_URL, {
+    reconnection: true,
+    reconnectionDelay: 100,
+    reconnectionAttempts: Infinity,
+    transports: ["websocket"],
+    forceNew: true,
+  });
+
+  socket.connect();
+
+  socket.on("connect", () => {
+    console.log("connecteddd", user.id);
+    socket.io.opts.query = {
+      user_id: user.id,
+    };
+
+    socket.connect();
+    //   console.log(socket.connected);
+    // });
+    // if (socket.connected === false && connecting === false) {
+    //   // use a connect() or reconnect() here if you want
+    //   socket.connect();
+    // }
+  });
+  return socket;
+};
+
 export const startSocketIO = (store) => {
   try {
     console.log("stated socket");
