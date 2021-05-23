@@ -8,13 +8,13 @@ import {
   Image,
   TouchableWithoutFeedback,
   Vibration,
-  Platform
+  Platform,
 } from "react-native";
-import { Icon } from 'react-native-elements';
+import { Icon } from "react-native-elements";
 import { banner, Dethi, Chude, TaoKhoaHoc } from "@assets";
 import * as Animatable from "react-native-animatable";
 // import Icon from "react-native-vector-icons/FontAwesome5";
-import { Badge, withBadge } from 'react-native-elements'
+import { Badge, withBadge } from "react-native-elements";
 // Push notification
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
@@ -26,9 +26,9 @@ class Home extends Component {
   constructor(props) {
     super(props);
   }
-static navigationOptions = {
-  header: null
-}
+  static navigationOptions = {
+    header: null,
+  };
   // static navigationOptions = ({ navigation }) => {
   //   const BadgedIcon = withBadge(1)(Icon);
   //   return {
@@ -74,11 +74,11 @@ static navigationOptions = {
         token = await Notifications.getExpoPushTokenAsync();
 
         console.log("token Notification", token);
-        await WebService.updateTokenNotify({ token: token});
+        await WebService.updateTokenNotify({ token: token });
 
         this.setState({ expoPushToken: token });
-      } catch(error) {
-        console.log(error)
+      } catch (error) {
+        console.log(error);
       }
     } else {
       alert("Must use physical device for Push Notifications");
@@ -102,16 +102,17 @@ static navigationOptions = {
     // notification (rather than just tapping the app icon to open it),
     // this function will fire on the next tick after the app starts
     // with the notification data.
-    this._notificationSubscription = Notifications.addListener(this._handleNotification);
+    this._notificationSubscription = Notifications.addListener(
+      this._handleNotification
+    );
   }
 
-  _handleNotification = notification => {
+  _handleNotification = (notification) => {
     Vibration.vibrate();
     this.props.navigation.navigate("NotificationList");
-    
+
     // this.setState({ notification: notification });
   };
-
 
   handleViewRefTest = (ref) => (this.test = ref);
   handleViewRefcreateCourse = (ref) => (this.createCourse = ref);
@@ -172,8 +173,8 @@ static navigationOptions = {
           }}
         >
           <Image
-            resizeMode={'cover'}
-            style={{ flex: 1, width: '100%', height: '50%' }}
+            resizeMode={"cover"}
+            style={{ flex: 1, width: "100%", height: "50%" }}
             source={banner}
           ></Image>
         </View>
@@ -287,7 +288,9 @@ static navigationOptions = {
             </Animatable.View>
           </View>
           <View style={{ flex: 1, flexDirection: "row" }}>
-            <TouchableWithoutFeedback onPress={() => this.bounce("ChallengeScreen")}>
+            <TouchableWithoutFeedback
+              onPress={() => this.bounce("ChallengeScreen")}
+            >
               <Animatable.View
                 ref={this.handleViewChallengeRun}
                 animation="fadeIn"
@@ -310,7 +313,9 @@ static navigationOptions = {
                 </Text>
               </Animatable.View>
             </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={() => this.bounce("LeaderBoardScreen")}>
+            <TouchableWithoutFeedback
+              onPress={() => this.bounce("LeaderBoardScreen")}
+            >
               <Animatable.View
                 ref={this.handleViewLeaderBoard}
                 animation="zoomInUp"
@@ -327,7 +332,9 @@ static navigationOptions = {
                   style={{ width: "50%", height: "50%" }}
                   source={Dethi}
                 ></Image> */}
-                <Text style={{ color: "white", fontSize: 20 }}>Bảng xếp hạng</Text>
+                <Text style={{ color: "white", fontSize: 20 }}>
+                  Bảng xếp hạng
+                </Text>
               </Animatable.View>
             </TouchableWithoutFeedback>
           </View>
