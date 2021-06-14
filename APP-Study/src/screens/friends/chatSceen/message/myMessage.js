@@ -1,15 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-const myMessage = (props) => {
+const MyMessage = (props) => {
   const { item } = props;
   const [imageCheck, setImageCheck] = useState(false);
 
   const renderMsg = () => {
-    return (
-      <Image style={{ width: 100, height: 100, borderRadius: 25 }} source />
-    );
+    if (item.msg.indexOf("https://") != -1) {
+      return (
+        <Image style={{ width: 100, height: 100, borderRadius: 25 }} source />
+      );
+    } else {
+      return <Text style={{ color: "black", fontSize: 14 }}>{item.msg}</Text>;
+    }
   };
+
+  useEffect(() => {
+    if (item.msg.indexOf("https://") != -1) {
+      setImageCheck(true);
+    }
+  });
 
   const renderTime = () => {
     let date = new Date();
@@ -33,7 +43,7 @@ const myMessage = (props) => {
         <View
           style={{
             ...styles.messageStyle,
-            backgroundColor: this.props.item.check ? "#FFF" : "#f1eff2",
+            backgroundColor: item.check ? "#FFF" : "#f1eff2",
           }}
         >
           {renderMsg()}
@@ -52,7 +62,7 @@ const myMessage = (props) => {
   );
 };
 
-export default myMessage;
+export default MyMessage;
 
 const styles = StyleSheet.create({
   messageStyle: {

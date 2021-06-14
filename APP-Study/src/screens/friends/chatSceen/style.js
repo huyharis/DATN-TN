@@ -8,9 +8,9 @@ const styles = StyleSheet.create({
   },
   header: {
     width: "100%",
-    height: 60,
+    height: 80,
     flexDirection: "row",
-    justifyContent: "space-between",
+    // justifyContent: "center",
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.51,
     shadowRadius: 13.16,
-
+    paddingTop: 20,
     elevation: 20,
   },
   sendMessage: {
@@ -36,10 +36,11 @@ const styles = StyleSheet.create({
       width: 0,
       height: 10,
     },
-    shadowOpacity: 0.51,
+    shadowOpacity: 5,
     shadowRadius: 13.16,
 
     elevation: 20,
+    paddingHorizontal: 20,
   },
 });
 export default styles;

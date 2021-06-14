@@ -84,6 +84,18 @@ const CourseStackNavigator = createStackNavigator(
   config
 );
 
+const friendNavigator = createStackNavigator(
+  {
+    Friends: {
+      screen: FriendsScreen,
+    },
+    Chat: {
+      screen: ChatScreen,
+    },
+  },
+  config
+);
+
 export default createDrawerNavigator(
   {
     // HomeDrawer: {
@@ -108,7 +120,7 @@ export default createDrawerNavigator(
       screen: NotificationList,
     },
     Friends: {
-      screen: FriendsScreen,
+      screen: friendNavigator,
     },
     Course: {
       screen: CourseStackNavigator,
@@ -121,9 +133,6 @@ export default createDrawerNavigator(
     },
     Alphabet: {
       screen: AlphabetScreen,
-    },
-    Chat: {
-      screen: ChatScreen,
     },
 
     // MyTopicScreen: {

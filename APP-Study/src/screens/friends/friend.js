@@ -36,6 +36,7 @@ import Button from "../../components/Button";
 import ModalWar from "./modalWar";
 import SearchRoute from "./search";
 import RequestFriend from "./request";
+// import socket from "socket.io";
 
 import styles from "./styles";
 
@@ -69,15 +70,19 @@ const FriendsScreen = ({ navigation }) => {
       bottomDivider
       // chevron
       rightTitle={
-        <TouchableOpacity onPress={() => chatRoom()}>
+        <TouchableOpacity onPress={() => chatRoom(item)}>
           <Icon name="comment" size={15} style={styles.war} />
         </TouchableOpacity>
       }
     />
   );
 
-  const chatRoom = () => {
-    navigation.navigate("Chat");
+  const chatRoom = (item) => {
+    console.log("🚀 ~ file: friend.js ~ line 80 ~ chatRoom ~ item", item);
+    navigation.navigate("Chat", item);
+    // socket.once('chat', (io) =>{
+    //   io.emit('')
+    // })
     // setLoading(true);
     // try {
     //   const response = await WebService.inviteFriend({ friend_id: id });
@@ -234,10 +239,6 @@ const FriendsScreen = ({ navigation }) => {
         }}
         mainText={"Bạn bè"}
         stylesHeader={styles.header}
-        leftComponent={
-          <Image source={ic_arrow_back} style={styles.backarrow} />
-        }
-        leftAction={() => navigation.goBack()}
       />
 
       <View style={styles.headerContainer}>

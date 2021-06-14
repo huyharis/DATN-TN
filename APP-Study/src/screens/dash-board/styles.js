@@ -28,7 +28,7 @@ export default styles = StyleSheet.create({
   textStyle: {
     color: '#234958',
     fontSize: 13
-  },  
+  },
   topicText: {
     color: colors.title,
     paddingBottom: 15,
@@ -63,7 +63,7 @@ export default styles = StyleSheet.create({
   imageStyle: {
     borderRadius: 10
   },
-  
+
   viewContainer: {
     paddingLeft: 20,
     paddingRight: 20,
@@ -85,7 +85,7 @@ export default styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: hp('3%'),
     paddingBottom: hp('3%'),
-  },  
+  },
   challengeRight: {
     width: '40%',
     // alignItems: 'center',
@@ -170,5 +170,15 @@ export default styles = StyleSheet.create({
     borderRadius: 30,
     padding: 10,
     marginBottom: 10
+  },
+  notificationArea: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  notiIcon: {
+    position: 'absolute',
+    top: -2,
+    left: -8,
+    zIndex: 10
   }
 })

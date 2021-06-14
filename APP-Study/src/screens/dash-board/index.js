@@ -14,6 +14,7 @@ import {
   Button,
   ListItem,
   message,
+  Badge,
 } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import * as Progress from "react-native-progress";
@@ -190,8 +191,8 @@ const DashBoardScreen = ({ navigation }) => {
           {
             // component: <BadgedIcon type="ionicon" name="md-notifications" color={"#fff"} style={styles.icon}/>,
             component: (
-              <View>
-                <Text>{notify}</Text>
+              <View style={styles.notificationArea}>
+                <Badge containerStyle={styles.notiIcon} value={notify} />
                 <Image source={ic_notifications_none} style={styles.icon} />
               </View>
             ),

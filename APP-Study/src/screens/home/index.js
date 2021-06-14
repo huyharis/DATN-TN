@@ -8,9 +8,9 @@ import MemmoryCard from "../games/memmoryCard";
 import GetChallenge from "../getChallenge";
 import GetDetailChallenge from "../getChallenge/getDetailChallge";
 import NotificationList from "../notification-list";
-import DashBoardScreen from '../dash-board';
-import AlphabetScreen from '../alphabet';
-import AlphabetDetail from '../alphabet/components/AlphabetDetail';
+import DashBoardScreen from "../dash-board";
+import AlphabetScreen from "../alphabet";
+import AlphabetDetail from "../alphabet/components/AlphabetDetail";
 
 export default createStackNavigator(
   {
@@ -25,11 +25,11 @@ export default createStackNavigator(
     GetDetailChallenge,
     NotificationList,
     AlphabetScreen,
-    AlphabetDetail
+    AlphabetDetail,
   },
   {
     initialRouteName: "DashBoardScreen",
-    mode: 'modal',
-    headerMode: 'screen'
+    mode: "modal",
+    headerMode: "screen",
   }
 );
