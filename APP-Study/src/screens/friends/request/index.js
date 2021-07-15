@@ -86,8 +86,6 @@ const RequestFriend = () => {
     getList();
   }, []);
 
-  console.log(requestFriends === [], requestFriends);
-
   return (
     <View style={[styles.scene]}>
       {requestFriends.length === 0 && (
@@ -97,9 +95,9 @@ const RequestFriend = () => {
         keyExtractor={keyExtractor}
         data={requestFriends}
         renderItem={renderItemRequest}
-        // refreshing={isRefreshing}
-        // onRefresh={() => onRefresh()}
-        // onEndReachedThreshold={0}
+      // refreshing={isRefreshing}
+      // onRefresh={() => onRefresh()}
+      // onEndReachedThreshold={0}
       />
     </View>
   );

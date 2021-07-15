@@ -36,13 +36,12 @@ class GetChallenge extends Component {
             loading: false
           });
           this.setState({
-            data: data.sort(function(a, b) {
+            data: data.sort(function (a, b) {
               return a.level - b.level;
             })
           });
         })
         .catch(err => {
-          console.log(err);
           this.setState({
             loading: true
           });
@@ -51,43 +50,42 @@ class GetChallenge extends Component {
   }
 
   _handleMove = id => {
-    console.log("idprops", id);
 
     this.props.navigation.navigate("GetDetailChallenge", { id_chal: id });
   };
   render() {
-    const { data,loading} = this.state;
+    const { data, loading } = this.state;
     return (
       <View style={{ flex: 1, backgroundColor: "#EEEEEE" }}>
         <ScrollView>
           {data.length > 0
             ? data.map((val, index) => (
-                <TouchableOpacity
-                  onPress={()=>this._handleMove(val._id)}
-                  key={index}
-                  style={{ ...Styles.iteam, padding: 10 }}
+              <TouchableOpacity
+                onPress={() => this._handleMove(val._id)}
+                key={index}
+                style={{ ...Styles.iteam, padding: 10 }}
+              >
+                <Text
+                  style={{
+                    color: "#FF6F00",
+                    fontSize: 25,
+                    fontWeight: "bold",
+                    textAlign: "center"
+                  }}
                 >
-                  <Text
-                    style={{
-                      color: "#FF6F00",
-                      fontSize: 25,
-                      fontWeight: "bold",
-                      textAlign: "center"
-                    }}
-                  >
-                    {val.question.replace(/&quot;/g, '"')}
-                  </Text>
-                  <Text
-                    style={{ fontSize: 15, color: "gray", textAlign: "center" }}
-                  >
-                    Cấp Độ:
-                  </Text>
-                  <Rating imageSize={15} readonly startingValue={val.level} />
-                </TouchableOpacity>
-              ))
+                  {val.question.replace(/&quot;/g, '"')}
+                </Text>
+                <Text
+                  style={{ fontSize: 15, color: "gray", textAlign: "center" }}
+                >
+                  Cấp Độ:
+                </Text>
+                <Rating imageSize={15} readonly startingValue={val.level} />
+              </TouchableOpacity>
+            ))
             : null}
         </ScrollView>
-        {loading && <Loading/>}
+        {loading && <Loading />}
       </View>
     );
   }

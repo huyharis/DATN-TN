@@ -46,21 +46,20 @@ class Lesson extends Component {
         this.setState({ loading: false });
       });
   }
-  _handleQuiz=(id,lock)=>{
-    if(lock){
+  _handleQuiz = (id, lock) => {
+    if (lock) {
       showMessage({
         message: "Bạn Chưa Mở Khóa",
         type: "danger"
       });
       return
     }
-    this.props.navigation.navigate('StudyLesson',{id})
+    this.props.navigation.navigate('StudyLesson', { id })
 
 
   }
   render() {
     const { topic, loading } = this.state;
-    console.log("loading", loading);
     return (
       <View style={{ flex: 1, backgroundColor: "#FFE082" }}>
         <Animatable.View
@@ -79,59 +78,59 @@ class Lesson extends Component {
             {!topic
               ? null
               : topic.map((data, index) => {
-                  //  if (data.complete)
-                  return (
-                    <TouchableOpacity
-                      key={index}
-                      style={Styles.topicGame}
-                      onPress={()=>this._handleQuiz(data._id,data.lock)}
-                    >
+                //  if (data.complete)
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    style={Styles.topicGame}
+                    onPress={() => this._handleQuiz(data._id, data.lock)}
+                  >
+                    <View>
+                      <Text style={{ color: "white", fontSize: 20 }}>
+                        {data.title}
+                      </Text>
                       <View>
-                        <Text style={{ color: "white", fontSize: 20 }}>
-                          {data.title}
+                        <Text style={{ color: "blue", fontSize: 10 }}>
+                          Question: {data.sumQuestion}
                         </Text>
-                        <View>
-                          <Text style={{ color: "blue", fontSize: 10 }}>
-                            Question: {data.sumQuestion}
-                          </Text>
-                          {/* <Text style={{ color: "white", fontSize: 10 }}>
+                        {/* <Text style={{ color: "white", fontSize: 10 }}>
                             Number Lesson: {data.lesson_number}
                           </Text> */}
-                          {!data.lock ? (
-                            <Icon
-                              name="check"
-                              size={20}
-                              color={"green"}
-                              style={{ textAlign: "center" }}
-                            />
-                          ) : (
-                            <Icon
-                              name="times"
-                              size={20}
-                              color={"red"}
-                              style={{ textAlign: "center" }}
-                            />
-                          )}
-                        </View>
+                        {!data.lock ? (
+                          <Icon
+                            name="check"
+                            size={20}
+                            color={"green"}
+                            style={{ textAlign: "center" }}
+                          />
+                        ) : (
+                          <Icon
+                            name="times"
+                            size={20}
+                            color={"red"}
+                            style={{ textAlign: "center" }}
+                          />
+                        )}
                       </View>
-                    </TouchableOpacity>
-                  );
-                  // else return(
-                  //   <TouchableWithoutFeedback
-                  //   key={index}
-                  //   onPress={() => this.bounce("createCourse")}
-                  // >
-                  //   <Animatable.View
-                  //     ref={this.handleViewRefcreateCourse}
-                  //     style={Styles.topicGame}
-                  //   >
-                  //     <Text style={{ color: "white", fontSize: 20 }}>
+                    </View>
+                  </TouchableOpacity>
+                );
+                // else return(
+                //   <TouchableWithoutFeedback
+                //   key={index}
+                //   onPress={() => this.bounce("createCourse")}
+                // >
+                //   <Animatable.View
+                //     ref={this.handleViewRefcreateCourse}
+                //     style={Styles.topicGame}
+                //   >
+                //     <Text style={{ color: "white", fontSize: 20 }}>
 
-                  //     </Text>
-                  //   </Animatable.View>
-                  // </TouchableWithoutFeedback>
-                  // )
-                })}
+                //     </Text>
+                //   </Animatable.View>
+                // </TouchableWithoutFeedback>
+                // )
+              })}
           </View>
         </ScrollView>
         {loading && <Loading />}

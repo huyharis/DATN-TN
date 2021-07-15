@@ -49,9 +49,6 @@ const ScoreScreen = ({ route, navigation }) => {
     return data?.user2?.score + ' - ' + data?.user1?.score
   }
 
-  console.log('aaaa');
-  
-
   return (
     <Background>
       <View style={styles.container}>

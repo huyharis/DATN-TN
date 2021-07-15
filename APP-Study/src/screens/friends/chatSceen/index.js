@@ -3,7 +3,6 @@ import { ActivityIndicator, FlatList } from "react-native";
 import { View, Text } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/FontAwesome";
-import EIcon from "react-native-vector-icons/Entypo";
 import McIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import IMGIcon from "react-native-vector-icons/FontAwesome5";
 import styles from "./style";
@@ -11,23 +10,45 @@ import { LinearGradient } from "expo-linear-gradient";
 import storage from "../../../storages";
 import MyMessage from "./message/myMessage";
 import YourMessage from "./message/yourMessage";
+import { chatSocket, getMessage } from "../../../services/socketIO";
+import WebService from "../../../services"
+import { showMessage } from "react-native-flash-message";
 
 const ChatScreen = ({ navigation }) => {
-  console.log(
-    "🚀 ~ file: index.js ~ line 16 ~ ChatScreen ~ navigation",
-    navigation
-  );
   const [isLoading, setLoading] = useState(false);
   const [check, setCheck] = useState(false);
   const [user, setUser] = useState({});
   const [msg, setMsg] = useState("");
   const [icon, setIcon] = useState([]);
   const [data, setData] = useState([]);
-  const friendInfo = navigation.state?.params;
+  const [arrMsg, setArrMsg] = useState([])
+  const friendInfo = navigation.state?.params?.item;
+  const userInfo = navigation.state?.params?.user
+  const roomId = navigation.state?.params?.dataRoom?.dataRoom?._id
+
+  useEffect(() => {
+    WebService.joinRoom([userInfo.id, friendInfo._id]).then(dataRoom => {
+      console.log("🚀 ~ file: index.js ~ line 32 ~ useEffect ~ data", dataRoom.dataRoom)
+      setData(dataRoom.dataRoom.message.reverse());
+    }).catch(err => {
+      console.log('loi get data room', err);
+    })
+    setUser(navigation.state?.params?.user)
+    getMessage(getMessages)
+  }, [])
+
+  const getMessages = (msg) => {
+  }
 
   const onSendMsg = async (src) => {
-    let idUser = await storage.getUserInfo();
-    setMsg("");
+    await WebService.addMessage({ id: user.id, msg: msg, roomId: roomId }).then(async (data) => {
+      chatSocket(msg)
+      setArrMsg([...arrMsg, msg])
+      setData(arrMsg)
+      setMsg("");
+    }).catch(error => {
+      showMessage({ message: error, type: "danger" })
+    })
   };
 
   const goBack = () => {
@@ -61,19 +82,19 @@ const ChatScreen = ({ navigation }) => {
         style={
           isLoading
             ? {
-                backgroundColor: "#FFF",
-                alignItems: "center",
-                justifyContent: "center",
-                marginBottom: 30,
-                width: "100%",
-                height: "100%",
-              }
+              backgroundColor: "#FFF",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: 30,
+              width: "100%",
+              height: "100%",
+            }
             : {
-                backgroundColor: "#FFF",
-                width: "100%",
-                height: "100%",
-                paddingBottom: 150,
-              }
+              backgroundColor: "#FFF",
+              width: "100%",
+              height: "100%",
+              paddingBottom: 150,
+            }
         }
       >
         {isLoading ? (
@@ -82,14 +103,16 @@ const ChatScreen = ({ navigation }) => {
           <FlatList
             inverted
             data={data}
-            renderItem={({ item }) => {
-              if (item.msg.indexOf("https://") != -1) {
-                setCheck(!check);
-              }
-              if (user.id == item.user?.id) {
-                return <MyMessage item={{ ...item, check }} />;
+            renderItem={(item) => {
+              console.log("🚀 ~ file: index.js ~ line 135 ~ ChatScreen ~ item", item)
+
+              // if (item.msg.indexOf("https://") != -1) {
+              //   setCheck(!check);
+              // }
+              if (user.id == item.item?.users?._id) {
+                return <MyMessage item={item.item} />;
               } else {
-                return <YourMessage item={{ ...item, check }} />;
+                return <YourMessage item={item.item} />;
               }
             }}
             keyExtractor={(item, index) => index.toString()}

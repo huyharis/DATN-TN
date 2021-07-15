@@ -145,6 +145,21 @@ export const endGame = (callback) => {
   });
 };
 
+export const chatSocket = (msg) => {
+  if (msg) {
+    socket.emit('chat message', msg)
+  }
+}
+
+export const getMessage = (callback) => {
+  // let message = "";
+  socket.on('chat message', (msg) => {
+    // message = msg;
+    callback(msg);
+  });
+  // return message;
+}
+
 export const SocketDisconect = () => {
   try {
     socket.disconnect();

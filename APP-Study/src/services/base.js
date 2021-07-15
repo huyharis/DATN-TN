@@ -25,7 +25,6 @@ const init = ({ token }) => {
   client.defaults.timeout = 30000;
 };
 const request = async (options, isHeader = true) => {
-  console.log("option", options)
   if (!isHeader) {
     client.defaults.headers.common.Authorization = null;
   }
@@ -36,11 +35,9 @@ const request = async (options, isHeader = true) => {
     if (response && response.status !== 200 && response.status !== 202) {
       throw response.data ? response.data.message : "";
     }
-    console.log('ok')
     return response.data ? response.data : {};
   };
   const onError = error => {
-    console.log('loi error', error.request, error.response )
     // console.log('[ERROR]', JSON.stringify(error, null, 2));
     if (error.response) {
       if (error.response.status === 401) {
@@ -59,7 +56,7 @@ const request = async (options, isHeader = true) => {
       // Something happened in setting up the request that triggered an Error
       throw error;
     }
-  
+
   };
 
   return client(options).then(onSuccess).catch(onError);
@@ -72,9 +69,8 @@ const put = (url, data, header = true) => request({ url, method: methods.put, da
 
 const patch = (url, data, header = true) => request({ url, method: methods.patch, data: JSON.stringify(data) }, header);
 
-const del = (url, params, header = true) => request({ url,params,method: methods.delete}, header);
-const postFormData = (api, formData,method) => {
-  console.log('api: ', api, '\nparam: ', formData);
+const del = (url, params, header = true) => request({ url, params, method: methods.delete }, header);
+const postFormData = (api, formData, method) => {
   return axios({
     url: `${Host}${api}`,
     method: `${method}`,
@@ -85,7 +81,7 @@ const postFormData = (api, formData,method) => {
       Authorization: `Bearer ${Authorization.token}`,
     },
   })
-  // AXIOS.post(api, serializeForm(params))
+    // AXIOS.post(api, serializeForm(params))
     .then((response) => {
       // console.log(response.data);
       // if (response.data.statusCode === RESPONSE_STATUS.Authorization) {
@@ -93,12 +89,12 @@ const postFormData = (api, formData,method) => {
       //   return;
       // }
       console.log(response);
-      
+
       return response.data;
     })
     .catch((error) => {
       console.log(error);
-      
+
       // if (error.response.status === RESPONSE_STATUS.Authorization) {
       //   EventRegister.emit('unauth', '');
       //   // return;
@@ -109,12 +105,11 @@ const postFormData = (api, formData,method) => {
 };
 
 export default {
-    init,
-    get,
-    post,
-    postFormData,
-    put,
-    patch,
-    del,
-  };
-  
+  init,
+  get,
+  post,
+  postFormData,
+  put,
+  patch,
+  del,
+};

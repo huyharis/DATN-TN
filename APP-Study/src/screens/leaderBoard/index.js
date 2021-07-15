@@ -41,7 +41,6 @@ const LeaderBoardScreen = ({ navigation }) => {
     getBoard();
   }, []);
 
-  console.log('boardboardboard', board);
 
 
   return (
@@ -89,7 +88,7 @@ const LeaderBoardScreen = ({ navigation }) => {
             <Paragraph children="25,175" style={styles.point} /> */}
           </View>
           <View style={styles.user}>
-          <View style={styles.level}>
+            <View style={styles.level}>
               <IconComponent name="heart" size={15} color={colors.red} />
               <Text style={styles.textLevel}>3</Text>
             </View>
@@ -121,11 +120,11 @@ const LeaderBoardScreen = ({ navigation }) => {
                 </View>
                 <View style={styles.box}>
                   <View style={styles.headerBox}>
-                  <Avatar
-                    size={40}
-                    rounded
-                    source={board && board[index] ? board[index].avatar : null}
-                  />
+                    <Avatar
+                      size={40}
+                      rounded
+                      source={board && board[index] ? board[index].avatar : null}
+                    />
                     <Text style={styles.textName}>{item.username}</Text>
                     {/* <Paragraph children="Enesto Howel" style={styles.textName} /> */}
                   </View>

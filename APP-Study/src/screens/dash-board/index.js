@@ -62,7 +62,6 @@ const DashBoardScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
   const onSelectItem = (id) => {
-    console.log(id);
 
     navigation.navigate("GetCourse", {
       idCourese: id,
@@ -91,9 +90,6 @@ const DashBoardScreen = ({ navigation }) => {
   };*/
 
   const FlatItem = ({ item, onSelect, index }) => {
-    console.log("index", index);
-    console.log("item", item);
-
     const { id } = item;
     return (
       <ViewVertical
@@ -161,18 +157,18 @@ const DashBoardScreen = ({ navigation }) => {
     setUser(user);
     getPublicCourse();
   }, []);
-  useEffect(async () => {
-    const socket = await Socket_Io();
-    console.log("🚀 ~ file: index.js ~ line 165 ~ useEffect ~ socket", socket);
 
+  const getNotification = async () => {
+    const socket = await Socket_Io();
     socket.on("NOTIFY_USER", (message) => {
       const count = notify + 1;
-      console.log("🚀 ~ file: index.js ~ line 169 ~ socket.on ~ count", count);
       setNotify(count);
-      console.log("adsdddddddddddddddddddddddddddd", message);
     });
+  }
+
+  useEffect(() => {
+    getNotification()
   }, []);
-  console.log("counotifynotifyrses", notify);
 
   return (
     <ViewVertical style={styles.container}>

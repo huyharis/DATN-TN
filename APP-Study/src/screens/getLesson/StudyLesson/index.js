@@ -52,7 +52,6 @@ class StudyLesson extends Component {
 
     Service.getDetailLesson(this.props.navigation.getParam("id"))
       .then(data => {
-        console.log(data);
         data ? this.setState({ data: data.vocabularies }) : null;
         this.setState({ loading: false });
       })

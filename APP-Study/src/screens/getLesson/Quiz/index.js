@@ -34,16 +34,16 @@ class Detail extends Component {
     headerTitleStyle: { color: "#ffffff", fontSize: 20 },
     headerStyle: { backgroundColor: "#536DFE", color: "white" }
   });
-  componentDidMount(){
-    Service.getQuizDetail(`5ddc170806a7a105c9d8d100`).then(data =>{
+  componentDidMount() {
+    Service.getQuizDetail(`5ddc170806a7a105c9d8d100`).then(data => {
       console.log(data)
-    }).then(err =>console.log(err))
+    }).then(err => console.log(err))
   }
   render() {
-  
+
     return (
       <View style={{ flex: 1, backgroundColor: "#FFE082" }}>
-       
+
       </View>
     );
   }

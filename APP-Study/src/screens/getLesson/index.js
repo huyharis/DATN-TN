@@ -46,11 +46,10 @@ class Detail extends Component {
   });
 
   componentDidMount() {
-    console.log("params ne", this.props.navigation.getParam("id"));
     this.setState({ loading: true });
     Service.getQuizDetail(this.props.navigation.getParam("id"))
       .then(data => {
-        let arr=[];
+        let arr = [];
         this.setState({
           quizData: data,
           quizPlay: data[0],
@@ -59,14 +58,14 @@ class Detail extends Component {
           endTotalQuiz: data.length,
           loading: false
         });
-        data.map((val,index)=>{
+        data.map((val, index) => {
           arr.push(val.answer_id)
-      
-         })
-         this.setState({righQuiz:arr})
-         
+
+        })
+        this.setState({ righQuiz: arr })
+
       })
-  
+
       .catch(err => {
         console.log(err);
         this.setState({ loading: false });
@@ -92,7 +91,6 @@ class Detail extends Component {
     } = this.state;
     //het mang
     if (life === 0) {
-      console.log("win", history);
       this.setState({ falseGame: true });
       clearInterval(this.interval);
       showMessage({
@@ -102,14 +100,12 @@ class Detail extends Component {
       return;
     }
     //tl dung
-    console.log("index",index,righQuiz[currentQuiz])
 
     if (index === righQuiz[currentQuiz]) {
       //win game
       if (currentQuiz === totalQuiz - 1) {
         clearInterval(this.interval);
         this.setState({ endQuiz: true });
-        console.log("win", history);
         return;
       }
       clearInterval(this.interval);
@@ -118,9 +114,7 @@ class Detail extends Component {
         message: "Ban Đã Trả Lời Đúng",
         type: "success"
       });
-      console.log(currentQuiz);
       currentQuiz += 1;
-      console.log("dung");
       this.interval = setInterval(
         () => this.setState(prevState => ({ timer: prevState.timer - 1 })),
         1000
@@ -202,9 +196,7 @@ class Detail extends Component {
           console.log(data);
         })
         .catch(err => console.log(err));
-      console.log("gui api", data);
     }
-    console.log("win chua", nextState.falseGame);
     return true;
   }
   render() {
@@ -222,7 +214,7 @@ class Detail extends Component {
       visibleLost,
       loading
     } = this.state;
-    
+
     return (
       <View style={{ flex: 1, backgroundColor: "#FFE082" }}>
         {endQuiz ? (
@@ -292,28 +284,28 @@ class Detail extends Component {
             >
               {totalQuiz !== 0
                 ? quizPlay.answers.map((value, index) => {
-                    return (
-                      <TouchableOpacity
-                        key={index}
-                        style={{
-                          width: "45%",
-                          height: "50%",
-                          borderColor: "green",
-                          margin: 5,
-                          borderWidth: 5,
-                          borderRadius: 10,
-                          backgroundColor: "white"
-                        }}
-                        onPress={() => this._hanldeAnsew(index, value._id)}
-                      >
-                        <Image
-                          resizeMode={"contain"}
-                          style={{ width: "100%", height: "100%" }}
-                          source={{ uri: value.answer }}
-                        ></Image>
-                      </TouchableOpacity>
-                    );
-                  })
+                  return (
+                    <TouchableOpacity
+                      key={index}
+                      style={{
+                        width: "45%",
+                        height: "50%",
+                        borderColor: "green",
+                        margin: 5,
+                        borderWidth: 5,
+                        borderRadius: 10,
+                        backgroundColor: "white"
+                      }}
+                      onPress={() => this._hanldeAnsew(index, value._id)}
+                    >
+                      <Image
+                        resizeMode={"contain"}
+                        style={{ width: "100%", height: "100%" }}
+                        source={{ uri: value.answer }}
+                      ></Image>
+                    </TouchableOpacity>
+                  );
+                })
                 : null}
             </View>
           </View>

@@ -46,7 +46,6 @@ const NotificationList = ({ navigation }) => {
 
   const notiRedux = useSelector((state) => state.UserReducer.noti);
 
-  console.log("notiRedux", notiRedux);
 
   useEffect(() => {
     if (notiRedux?.length === 0 || notiRedux === undefined) {
@@ -55,7 +54,6 @@ const NotificationList = ({ navigation }) => {
   }, []);
 
   const getNotificationSocket = (data) => {
-    console.log(data);
 
     if (data) {
       dispatch(UserACtion.addNoti(data));
@@ -119,7 +117,6 @@ const NotificationList = ({ navigation }) => {
   };
 
   const _onHandleCancel = (value) => {
-    console.log("value", value);
     showMessage({
       message: "Success",
       type: "success",

@@ -39,6 +39,7 @@ import RequestFriend from "./request";
 // import socket from "socket.io";
 
 import styles from "./styles";
+import storage from "../../storages";
 
 // const initialLayout = { width: Dimensions.get("window").width };
 
@@ -77,28 +78,16 @@ const FriendsScreen = ({ navigation }) => {
     />
   );
 
-  const chatRoom = (item) => {
-    console.log("🚀 ~ file: friend.js ~ line 80 ~ chatRoom ~ item", item);
-    navigation.navigate("Chat", item);
-    // socket.once('chat', (io) =>{
-    //   io.emit('')
-    // })
-    // setLoading(true);
-    // try {
-    //   const response = await WebService.inviteFriend({ friend_id: id });
-    //   if (response) {
-    //     setRoomId(response);
-    //     setIsVisible(true);
-    //     const receiver = friends.filter((item) => item._id === id);
-    //     setReceiver(receiver[0]);
-    //   }
-    // } catch (error) {
-    //   showMessage({
-    //     message: getErrorMessage(error),
-    //     type: "danger",
-    //   });
-    // }
-    // setLoading(false);
+  const chatRoom = async (item) => {
+    let idUser = await storage.getUserInfo();
+    try {
+      const data = await WebService.joinRoom([idUser.id, item._id])
+      if (data.msg === "successed") {
+        navigation.navigate("Chat", { item: item, user: idUser, dataRoom: data });
+      }
+    } catch (error) {
+      console.log('error', error);
+    }
   };
 
   const getList = async () => {
@@ -131,8 +120,6 @@ const FriendsScreen = ({ navigation }) => {
   );
 
   const ThirdRoute = () => {
-    console.log("requestFriends", requestFriends, !requestFriends);
-
     return requestFriends ? (
       <FlatList
         keyExtractor={keyExtractor}

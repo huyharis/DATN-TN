@@ -6,26 +6,25 @@ const MyMessage = (props) => {
   const [imageCheck, setImageCheck] = useState(false);
 
   const renderMsg = () => {
-    if (item.msg.indexOf("https://") != -1) {
-      return (
-        <Image style={{ width: 100, height: 100, borderRadius: 25 }} source />
-      );
-    } else {
-      return <Text style={{ color: "black", fontSize: 14 }}>{item.msg}</Text>;
-    }
+    // if (item.msg.indexOf("https://") != -1) {
+    // return (
+    //   <Image style={{ width: 100, height: 100, borderRadius: 25 }} source />
+    // );
+    // } else {
+    return <Text style={{ color: "black", fontSize: 14 }}>{item.msg}</Text>;
+    // }
   };
 
-  useEffect(() => {
-    if (item.msg.indexOf("https://") != -1) {
-      setImageCheck(true);
-    }
-  });
+  // useEffect(() => {
+  //   if (item.item.indexOf("https://") != -1) {
+  //     setImageCheck(true);
+  //   }
+  // });
 
   const renderTime = () => {
     let date = new Date();
-    let dateNew = `${date.getDay()}th${
-      date.getMonth() + 1
-    },${date.getFullYear()} Lúc ${date.getHours()}:${date.getMinutes()}`;
+    let dateNew = `${date.getDay()}th${date.getMonth() + 1
+      },${date.getFullYear()} Lúc ${date.getHours()}:${date.getMinutes()}`;
     return dateNew;
   };
 
@@ -43,7 +42,7 @@ const MyMessage = (props) => {
         <View
           style={{
             ...styles.messageStyle,
-            backgroundColor: item.check ? "#FFF" : "#f1eff2",
+            // backgroundColor: item.check ? "#FFF" : "#f1eff2",
           }}
         >
           {renderMsg()}

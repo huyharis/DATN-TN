@@ -1,22 +1,22 @@
 // Auth
-export const loginApi= `/users/login`;
+export const loginApi = `/users/login`;
 export const loginSocial = `/users/login-fb`;
 
-export const registerApi= `/users`
-export const putAvartar= `/avatars`
-export const createCoures= `/courses`
-export const deleteCoures= `/courses`
-export const getCoursesPrivate= `/users/get-courses-latest`
-export const getDetailCourses= `/courses`
-export const updateContentOnCourse= `/courses`
+export const registerApi = `/users`
+export const putAvartar = `/avatars`
+export const createCoures = `/courses`
+export const deleteCoures = `/courses`
+export const getCoursesPrivate = `/users/get-courses-latest`
+export const getDetailCourses = `/courses`
+export const updateContentOnCourse = `/courses`
 //topics
-export const getTopic= `/topics`
+export const getTopic = `/topics`
 
 //history
-export const setHistory= `/histories/update-history`;
+export const setHistory = `/histories/update-history`;
 // export const vocabularyHistory = id => `histories/vocabulary-history/${id}`
 //challenge
-export const getChallenge= `challenge`
+export const getChallenge = `challenge`
 export const updateHightMark = '/users/hight-mark';
 
 // getme
@@ -40,3 +40,6 @@ export const getCoursePublic = `/courses/public`;
 export const getListCurrent = '/histories/current-history';
 export const shareCourse = '/courses/share';
 export const acceptCourse = '/courses/accept';
+// room
+export const joinRoom = '/room/getRoomChatById'
+export const addMsg = '/room/addMsg';

@@ -14,7 +14,6 @@ const MemoryCardScreen = ({ navigation }) => {
 
   useEffect(() => {
     const data = navigation?.getParam('data');
-    console.log(data);
     setData(data)
 
   }, [navigation?.getParam('data')])

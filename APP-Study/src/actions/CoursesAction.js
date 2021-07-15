@@ -21,7 +21,7 @@ _getCoursesFalsed = data => {
     data: data
   };
 };
-function _deleteCourses (id) {
+function _deleteCourses(id) {
   return {
     type: typeAction.DELETE_COURESE,
     id
@@ -35,7 +35,6 @@ function _getCoursesRequest(id) {
         dispatch(_getCoursesSuccess(data));
       })
       .catch(err => {
-        console.log("bi loi", err);
         showMessage({
           message: err,
           type: "danger"

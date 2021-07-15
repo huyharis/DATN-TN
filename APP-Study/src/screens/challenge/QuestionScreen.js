@@ -72,7 +72,6 @@ const QuestionScreen = ({ navigation }) => {
       value: choice !== current.answer,
     });
 
-    console.log("point", point);
     setScore(point);
 
     if (room?.room) {
@@ -252,14 +251,13 @@ const QuestionScreen = ({ navigation }) => {
   // }, []);
 
   // useEffect(() => {
-    
+
   // });
 
   useEffect(() => {
     return () => endGame;
   });
 
-  console.log("rooommmmmm", correct);
   // let scoreWar = {
   //   if()
   // }

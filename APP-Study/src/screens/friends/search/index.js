@@ -46,12 +46,9 @@ const SearchRoute = (props) => {
     // }
     WebService.searchFriend(value)
       .then(async (data) => {
-        console.log(data);
-
         setFriends(data);
       })
       .catch((err) => {
-        console.log("bi loi", err);
         showMessage({
           message: err,
           type: "danger",

@@ -29,12 +29,11 @@ class GetChallenge extends Component {
     headerStyle: { backgroundColor: "#536DFE", color: "white" },
     headerTintColor: "white"
   });
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
   //WARNING! To be deprecated in React v17. Use componentDidMount instead.
   componentDidMount() {
     const id = this.props.navigation.getParam("id_chal");
-    console.log("id nhan dc", id);
     Service.getDetailChanll(id)
       .then(data => {
         this.setState({ data });
@@ -44,7 +43,7 @@ class GetChallenge extends Component {
       });
   }
 
-  _handleGoToDetail = id => {};
+  _handleGoToDetail = id => { };
   _handleSound = async url => {
     try {
       const playbackObject = await Audio.Sound.createAsync(
@@ -83,15 +82,14 @@ class GetChallenge extends Component {
       this.setState({ winGame: true, imfomation: "thua" });
     }
   };
-  handleCancel=() =>{
+  handleCancel = () => {
     this.setState({ winGame: false });
   }
-  handleDelete=() =>{
+  handleDelete = () => {
     this.setState({ winGame: false });
   }
   render() {
     const { data, winGame, fasleGame, imfomation } = this.state;
-    console.log(data.question);
     return (
       <View style={{ flex: 1, backgroundColor: "#EEEEEE" }}>
         {winGame ? (

@@ -19,7 +19,6 @@ function Drawer(props) {
   const [loading, setLoading] = useState(false);
   const [active, setActive] = useState(false);
   const moveScreen = (index, screen) => {
-    console.log(screen);
     setActive(!active)
     Navigator.navigate(screen);
   };
@@ -31,7 +30,7 @@ function Drawer(props) {
       id: "1",
       title: "ホームページ",
       subtitle: 'Trang chủ',
-      onPress: () => moveScreen(1,"DashBoard"),
+      onPress: () => moveScreen(1, "DashBoard"),
       icon: "home"
     },
     {
@@ -39,28 +38,28 @@ function Drawer(props) {
       title: "自己紹介ページ",
       subtitle: 'Trang cá nhân',
       icon: "user-circle",
-      onPress: () => moveScreen(2,"Profile")
+      onPress: () => moveScreen(2, "Profile")
     },
     {
       id: "3",
       title: "フレンズ",
       subtitle: 'Bạn bè',
       icon: "clipboard-list",
-      onPress: () => moveScreen(3,"Friends")
+      onPress: () => moveScreen(3, "Friends")
     },
     {
       id: "4",
       title: "スコアボード",
       subtitle: 'Bảng thành tích',
       icon: "clipboard-list",
-      onPress: () => moveScreen(4,"LeaderBoard")
+      onPress: () => moveScreen(4, "LeaderBoard")
     },
     {
       id: '6',
       title: 'アルファベット',
       subtitle: 'Danh sách chủ đề',
       icon: 'clipboard-list',
-      onPress: () => moveScreen(5,'Topic')
+      onPress: () => moveScreen(5, 'Topic')
     },
     {
       id: "7",
@@ -68,8 +67,7 @@ function Drawer(props) {
       subtitle: 'Đăng xuất',
       icon: "sign-out-alt",
       onPress: () => {
-        console.log("ok");
-        moveScreen(6,"Logout");
+        moveScreen(6, "Logout");
       }
     },
   ];
@@ -77,7 +75,7 @@ function Drawer(props) {
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Logo style={styles.logo}/>
+        <Logo style={styles.logo} />
         {/* <Text style={{color: '#000', fontSize: 18}}>Japanese Learning</Text> */}
       </View>
       <ScrollView style={styles.scrollVew} showsVerticalScrollIndicator={false}>
@@ -91,8 +89,8 @@ function Drawer(props) {
                 title={item.title}
                 subtitle={item.subtitle}
                 leftIcon={<Icon name={item.icon} size={17} color={"#707D82"} />}
-                // bottomDivider
-                // chevron={<Icon name={"chevron-right"} color={"#707D82"} />}
+              // bottomDivider
+              // chevron={<Icon name={"chevron-right"} color={"#707D82"} />}
               />
             </TouchableOpacity>
           );

@@ -50,7 +50,6 @@ const AddTopicScreen = ({ navigation }) => {
     let match = /\.(\w+)$/.exec(filename);
     let typeFile = match ? `image/${match[1]}` : `image`;
 
-    console.log(typeFile);
 
     if (!FilterImage(typeFile)) {
       showMessage({
@@ -75,21 +74,22 @@ const AddTopicScreen = ({ navigation }) => {
   };
 
   const saveCourse = async () => {
-    if(!title) {
+    if (!title) {
       showMessage({
         message: "Title khong duoc rong",
         type: "warning",
       });
       return;
     }
-    if(!image){
+    if (!image) {
       showMessage({
         message: "Hay chon hinh anh",
         type: "warning",
       });
       return;
     }
-    if(contents.length < 2) {đ
+    if (contents.length < 2) {
+      đ
       showMessage({
         message: "Phải thêm ít nhất 2 thẻ ghi nhớ",
         type: "warning",
@@ -104,8 +104,8 @@ const AddTopicScreen = ({ navigation }) => {
     data.append('content', JSON.stringify(contents));
 
     try {
-      if(navigation.getParam('idCourse')) {
-        await WebService.updateContentOnCourse(navigation.getParam('idCourse'),data)
+      if (navigation.getParam('idCourse')) {
+        await WebService.updateContentOnCourse(navigation.getParam('idCourse'), data)
         getAllCourse();
       } else {
         await WebService.createCourse(data);
@@ -119,7 +119,7 @@ const AddTopicScreen = ({ navigation }) => {
       navigation.goBack();
     } catch (error) {
       console.log('error', error);
-      
+
       showMessage({
         message: getErrorMessage(error),
         type: "danger",
@@ -128,7 +128,7 @@ const AddTopicScreen = ({ navigation }) => {
     setLoading(false);
   }
 
-  const getAllCourse= async ()=>{
+  const getAllCourse = async () => {
     await WebService.getCourses()
   }
 
@@ -155,7 +155,6 @@ const AddTopicScreen = ({ navigation }) => {
 
   const updateContent = () => {
     const data = contents.filter(i => i._id !== current._id);
-    console.log("🚀 ~ file: addTopic.js ~ line 158 ~ updateContent ~ data", data)
     data.push(current);
     setContents(data);
     // await WebService.updateContentOnCourse(data)
@@ -166,12 +165,11 @@ const AddTopicScreen = ({ navigation }) => {
     setLoading(true);
     try {
       const res = await WebService.getDetailCourses(id);
-      console.log('res', res);
       setContents(res.contents);
       setTitle(res.title);
       setLocalUri(res.avatar)
-      
-    } catch(error) {
+
+    } catch (error) {
       showMessage({
         message: getErrorMessage(error),
         type: 'danger'
@@ -181,8 +179,7 @@ const AddTopicScreen = ({ navigation }) => {
   }
 
   useEffect(() => {
-    console.log(navigation.getParam('idCourse'));
-    if(navigation.getParam('idCourse')) {
+    if (navigation.getParam('idCourse')) {
       getDetailCourse(navigation.getParam('idCourse'))
     }
 
@@ -207,13 +204,13 @@ const AddTopicScreen = ({ navigation }) => {
         leftAction={() => navigation.goBack()}
       />
       <ScrollView style={[styles.container, { width: "100%" }]}>
-        <Text style={[styles.titleHeader, { textAlign: 'center'}]}>
+        <Text style={[styles.titleHeader, { textAlign: 'center' }]}>
           {navigation?.getParam('idCourse') ? `トピックを編集` : `その他のトピック`}
         </Text>
         <Text
-          style={[styles.textHeader, { textAlign: 'center'}]}
+          style={[styles.textHeader, { textAlign: 'center' }]}
         >
-          {navigation?.getParam('idCourse') ? `Sửa chủ đề` : `Thêm chủ đề` }
+          {navigation?.getParam('idCourse') ? `Sửa chủ đề` : `Thêm chủ đề`}
         </Text>
 
         <Input
@@ -262,7 +259,7 @@ const AddTopicScreen = ({ navigation }) => {
             placeholderTextColor="#C0DDF4"
             value={name}
           />
-         
+
           <Button
             icon={<Icon name="plus" size={35} color="white" />}
             iconRight
@@ -270,7 +267,7 @@ const AddTopicScreen = ({ navigation }) => {
             buttonStyle={styles.buttonStyle}
             iconContainerStyle={styles.iconContainerStyle}
             onPress={addContents}
-            // title="Button with right icon"
+          // title="Button with right icon"
           />
         </ViewVertical>
         {contents &&

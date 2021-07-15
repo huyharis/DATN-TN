@@ -51,9 +51,9 @@ class Language extends Component {
       _handleChange: this._handleChange
     });
   }
-  _handleChoose=(name,code)=>{
-    const language={
-      name,code,id:this.props.navigation.getParam("id")
+  _handleChoose = (name, code) => {
+    const language = {
+      name, code, id: this.props.navigation.getParam("id")
     }
     this.props.navigation.navigate(
       'CreateCourse',
@@ -61,27 +61,26 @@ class Language extends Component {
     );
   }
   _handleChange = text => {
- const resuilt=   LanguageInFo.filter(item => item.name.toLowerCase().indexOf(text.toLowerCase()) > -1)
+    const resuilt = LanguageInFo.filter(item => item.name.toLowerCase().indexOf(text.toLowerCase()) > -1)
     this.setState({
       search: text,
-      data:resuilt
+      data: resuilt
     });
     this.props.navigation.setParams({
       search: text
     });
   };
- 
+
   render() {
     const { data } = this.state;
-    console.log(data)
     return (
       <View style={{ flex: 1 }}>
         <FlatList
           extraData={this.state}
           data={data}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={()=>this._handleChoose(item.name,item.code)} style={{padding:20,paddingTop:10,backgroundColor:'#ECEFF1'}} key={item.code}>
-              <Text style={{fontSize:20}}>{item.name}</Text>
+            <TouchableOpacity onPress={() => this._handleChoose(item.name, item.code)} style={{ padding: 20, paddingTop: 10, backgroundColor: '#ECEFF1' }} key={item.code}>
+              <Text style={{ fontSize: 20 }}>{item.name}</Text>
             </TouchableOpacity>
           )}
           keyExtractor={(item, index) => index.toString()}

@@ -47,8 +47,7 @@ class ChoiceTestScreen extends Component {
         return { _id: item._id, rightAnwser: 0 }
       })
 
-      console.log('answeranswer', answer);
-      
+
 
       this.setState({ listQuestions: data });
     } catch (error) { }
@@ -71,20 +70,19 @@ class ChoiceTestScreen extends Component {
 
     try {
       const res = await webservice.setHistory(body);
-      console.log(res);
-      navigation.navigate('FinishTestScreen', { 
-        idCourse: navigation.getParam('idCourse'), score, count: listQuestions.length }
+      navigation.navigate('FinishTestScreen', {
+        idCourse: navigation.getParam('idCourse'), score, count: listQuestions.length
+      }
       );
-      
-    } catch(error) {
+
+    } catch (error) {
       showMessage({
         message: getErrorMessage(error),
         type: "danger",
       });
     }
 
-    
-    console.log(answer);
+
 
     this.setState({ score });
   };

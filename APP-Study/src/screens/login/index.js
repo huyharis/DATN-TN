@@ -32,7 +32,7 @@ const Login = ({ navigation }) => {
   const [username, setUsername] = useState({ value: "huyharishz", error: "" });
   const [password, setPassword] = useState({ value: "123456789", error: "" });
   const [isRemember, setIsRemember] = useState(false);
-  
+
   const dispatch = useDispatch();
   const loading = useSelector(state => state.login.loading)
 
@@ -46,11 +46,10 @@ const Login = ({ navigation }) => {
       return;
     }
 
-    const user = { 
-      username: username.value, 
-      password: password.value 
+    const user = {
+      username: username.value,
+      password: password.value
     };
-    console.log(user)
     dispatch(LoginACtion.loginRequest(user));
   };
 
@@ -67,7 +66,7 @@ const Login = ({ navigation }) => {
       } = await Facebook.logInWithReadPermissionsAsync("2516568351918071", {
         permissions: ["public_profile", "email"]
       });
-      
+
       if (type === "success") {
         // Get the user's name using Facebook's Graph API
         const response = await fetch(
@@ -75,11 +74,11 @@ const Login = ({ navigation }) => {
         );
         const profile = await response.json();
         const { error } = profile;
-        if(error) {
+        if (error) {
           Alert.alert('Error', error.message);
           return;
         }
-        
+
         const { data } = profile.picture;
 
         const body = {
@@ -106,7 +105,7 @@ const Login = ({ navigation }) => {
   return (
     <Background blurRadius={0.5}>
       <View style={styles.container}>
-        <Logo style={styles.logo}/>
+        <Logo style={styles.logo} />
 
         <TextInput
           labelTop="Tài khoản"
@@ -140,9 +139,9 @@ const Login = ({ navigation }) => {
           titleStyle={styles.titleButton}
         />
 
-        <View>
+        {/* <View>
           <Text>Hoặc sử dụng tài khoản</Text>
-        </View>
+        </View> */}
 
         <View style={styles.social}>
           {/* <Button
@@ -154,14 +153,14 @@ const Login = ({ navigation }) => {
             type="clear"
           /> */}
 
-          <Button
+          {/* <Button
             containerStyle={styles.btnFacebook}
             icon={<Icon name="facebook-f" size={15} color="white" />}
             title="Facebook"
             titleStyle={styles.titleSocial}
             onPress={_handleFacebookLogin}
             type="clear"
-          />
+          /> */}
         </View>
 
         <View style={styles.row}>

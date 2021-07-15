@@ -89,7 +89,7 @@ export default class GetCourse extends Component {
     try {
       const course_id = this.props.navigation.getParam('idCourese');
 
-      const data = await Service.shareCourse({ friend_id, course_id})
+      const data = await Service.shareCourse({ friend_id, course_id })
       showMessage({
         type: 'success',
         message: 'Chia sẻ thành công'
@@ -104,7 +104,6 @@ export default class GetCourse extends Component {
 
   render() {
     const { data, loading, user, friends, isVisible } = this.state;
-    console.log(data);
 
     const { navigation } = this.props;
     const { state, navigate, goBack } = navigation;
@@ -246,28 +245,28 @@ export default class GetCourse extends Component {
 
               {CardList
                 ? CardList.map((item, index) => {
-                    return (
-                      <ListItem
-                        key={index}
-                        leftElement={
-                          <Image
-                            source={item.icon}
-                            style={{ width: 20, height: 20 }}
-                            resizeMode="contain"
-                          />
-                        }
-                        title={item.title}
-                        rightTitle={item.rightTitle}
-                        titleStyle={Styles.titleStyle}
-                        rightTitleStyle={Styles.titleStyle}
-                        containerStyle={Styles.containerStyleItem}
-                        rightContentContainerStyle={
-                          Styles.rightContentContainerStyle
-                        }
-                        onPress={item.onPress}
-                      />
-                    );
-                  })
+                  return (
+                    <ListItem
+                      key={index}
+                      leftElement={
+                        <Image
+                          source={item.icon}
+                          style={{ width: 20, height: 20 }}
+                          resizeMode="contain"
+                        />
+                      }
+                      title={item.title}
+                      rightTitle={item.rightTitle}
+                      titleStyle={Styles.titleStyle}
+                      rightTitleStyle={Styles.titleStyle}
+                      containerStyle={Styles.containerStyleItem}
+                      rightContentContainerStyle={
+                        Styles.rightContentContainerStyle
+                      }
+                      onPress={item.onPress}
+                    />
+                  );
+                })
                 : null}
             </ViewVertical>
           </ScrollView>
@@ -277,7 +276,7 @@ export default class GetCourse extends Component {
         <ModalBox style={Styles.modalbox} isVisible={isVisible}>
           <TouchableOpacity
             style={Styles.icContainer}
-            onPress={() => this.setState({ isVisible: false})}
+            onPress={() => this.setState({ isVisible: false })}
           >
             <Image source={CLOSE} style={Styles.icClose} />
           </TouchableOpacity>
@@ -292,7 +291,6 @@ export default class GetCourse extends Component {
           >
             {friends &&
               friends.map((item, index) => {
-                console.log(item);
                 return (
                   <ListItem
                     key={index}

@@ -11,13 +11,10 @@ class Athu extends Component {
   constructor(props) {
     super(props);
     this.checkAthu();
-    console.log("authhh ne");
   }
   checkAthu = async () => {
     const token = await Storage.getToken();
-    console.log("🚀 ~ file: index.js ~ line 18 ~ checkAthu= ~ token", token);
     const user = await Storage.getUserInfo();
-    console.log("token sas", token, user);
     if (token) {
       api.init({ token });
       socketInitial(user.id);
@@ -25,7 +22,6 @@ class Athu extends Component {
       // emitStartGame();
       this.props.dispatch(UserACtion.getUser());
 
-      console.log("token", token);
       Navigator.navigate("Main");
     } else {
       Navigator.navigate("Auth");

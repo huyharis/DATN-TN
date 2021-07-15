@@ -20,16 +20,16 @@ import { SocialIcon } from "react-native-elements";
 import Styles from "./styles";
 
 function guidGenerator() {
-  var S4 = function() {
-     return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+  var S4 = function () {
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
   };
-  return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+  return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
 }
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      disable:false,
+      disable: false,
       delete: false,
       autoFocus: false,
       loading: false,
@@ -42,18 +42,18 @@ class Home extends Component {
           valueDefine: "",
           erroText: "",
           erroDefine: "",
-          language:"VietNamese",
-          languageCode:"vi"
+          language: "VietNamese",
+          languageCode: "vi"
 
         },
         {
-          id:guidGenerator(),
+          id: guidGenerator(),
           valueText: "",
           valueDefine: "",
           erroText: "",
           erroDefine: "",
-          language:"VietNamese",
-          languageCode:"vi"
+          language: "VietNamese",
+          languageCode: "vi"
         }
       ]
     };
@@ -80,7 +80,6 @@ class Home extends Component {
   submitCreateCourse = () => {
     const { titleCourse, data } = this.state;
     const result = this.validate(titleCourse);
-    console.log("🚀 ~ file: index.js ~ line 84 ~ titleCourse", titleCourse)
 
     if (!result.status) {
       this.setState({ erroTitle: result.mess });
@@ -94,7 +93,7 @@ class Home extends Component {
       const content = {
         text: item.valueText,
         mean: item.valueDefine,
-        language:item.languageCode
+        language: item.languageCode
 
       };
       const resultText = this.validate(item.valueText);
@@ -144,23 +143,22 @@ class Home extends Component {
       submitCreateCourse: this.submitCreateCourse
     });
   }
-componentWillReceiveProps(nextProps) {
-  if(this.props.navigation.getParam("language") !== nextProps.navigation.getParam("language"))
-    {
-      const {data} = this.state
-      let language=nextProps.navigation.getParam("language")
-      data.map((value,index)=>{
-        if(value.id === language.id){
-          value.language=language.name
-          value.languageCode=language.code
+  componentWillReceiveProps(nextProps) {
+    if (this.props.navigation.getParam("language") !== nextProps.navigation.getParam("language")) {
+      const { data } = this.state
+      let language = nextProps.navigation.getParam("language")
+      data.map((value, index) => {
+        if (value.id === language.id) {
+          value.language = language.name
+          value.languageCode = language.code
         }
       })
       this.setState({
         data
       })
-      
+
     }
-}
+  }
 
   handleOnTextChange = event => {
     this.setState({
@@ -169,17 +167,17 @@ componentWillReceiveProps(nextProps) {
   };
   handleOnDefineContent = event => {
     const { data } = this.state;
-    data.map((item,index)=>{
-      if(item.id === event.id)
-       item.valueDefine=event.valueDefine
-     })
-     this.setState({ data });
+    data.map((item, index) => {
+      if (item.id === event.id)
+        item.valueDefine = event.valueDefine
+    })
+    this.setState({ data });
   };
   handleOnTextContent = event => {
     const { data } = this.state;
-    data.map((item,index)=>{
-     if(item.id === event.id)
-      item.valueText=event.valueText
+    data.map((item, index) => {
+      if (item.id === event.id)
+        item.valueText = event.valueText
     })
     // const result= data.filter((item => item.id === event.id))
     // data[event.id.toString()].valueText = event.valueText;
@@ -206,14 +204,14 @@ componentWillReceiveProps(nextProps) {
     if (result.length <= 2) this.setState({ delete: false });
     this.setState({ data: result });
   };
-  _handleLan =(id)=>{
-    this.props.navigation.navigate("Language",{ id })
+  _handleLan = (id) => {
+    this.props.navigation.navigate("Language", { id })
   }
   renderItem = ({ item, index, move, moveEnd, isActive }) => {
-    handleMove=()=>{
+    handleMove = () => {
       return (move)
     }
-  
+
     return (
       <TouchableOpacity
         style={{
@@ -221,7 +219,7 @@ componentWillReceiveProps(nextProps) {
           backgroundColor: isActive ? "#E1F5FE" : "white"
         }}
         onLongPress={this.handleMove}
-        onPressOut={()=>{
+        onPressOut={() => {
           moveEnd
         }}
       >
@@ -260,14 +258,12 @@ componentWillReceiveProps(nextProps) {
           disabled={this.state.disable}
 
         />
-  <TouchableOpacity onPress={()=>this._handleLan(item.id)} style={{padding:10}}><Text style={{color:"green"}}>Ngôn Ngữ:{item.language}</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => this._handleLan(item.id)} style={{ padding: 10 }}><Text style={{ color: "green" }}>Ngôn Ngữ:{item.language}</Text></TouchableOpacity>
       </TouchableOpacity>
     );
   };
 
   render() {
-  
-    console.log("lange",this.props.navigation.getParam("language"))
     const { data, erroTitle, loading } = this.state;
     return (
       <View style={Styles.container}>

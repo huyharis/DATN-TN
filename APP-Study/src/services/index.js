@@ -30,7 +30,7 @@ export default class WebService {
   static getListCurrentPublic = () => {
     return api.get(url.getListCurrent);
   }
-  static updateContentOnCourse = async (id,data) => {
+  static updateContentOnCourse = async (id, data) => {
     return api.postFormData(`/courses?id=${id}`, data, "PUT")
   }
 
@@ -103,7 +103,15 @@ export default class WebService {
   static addFriend = (body) => {
     return api.put(url.addFriend, body);
   }
-  
+
+  static joinRoom = (params) => {
+    return api.get(url.joinRoom, params)
+  }
+
+  static addMessage = (body) => {
+    return api.post(url.addMsg, body)
+  }
+
   // Game Challenge
   static inviteFriend = body => {
     return api.post(url.inviteFriend, body)

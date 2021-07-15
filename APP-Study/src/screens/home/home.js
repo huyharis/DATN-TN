@@ -73,7 +73,6 @@ class Home extends Component {
       try {
         token = await Notifications.getExpoPushTokenAsync();
 
-        console.log("token Notification", token);
         await WebService.updateTokenNotify({ token: token });
 
         this.setState({ expoPushToken: token });
@@ -124,13 +123,11 @@ class Home extends Component {
     switch (name) {
       case "createCourse":
         this.createCourse.bounce(800).then((endState) => {
-          console.log("GetCourese");
           this.props.navigation.navigate("CreateCourse");
         });
         break;
       case "GetCourese":
         this.GetCourese.bounce(800).then((endState) => {
-          console.log("GetCourese");
           this.props.navigation.navigate("GetCourese");
         });
         break;
@@ -161,7 +158,6 @@ class Home extends Component {
     }
   };
   render() {
-    console.log("home");
     return (
       <View style={{ flex: 1 }}>
         <View

@@ -26,7 +26,6 @@ function loginRequest(loginData) {
     dispatch({ type: typeAction.IS_LOADING_LOGIN });
     WebService.login(loginData)
       .then(async data => {
-      console.log("🚀 ~ file: loginAction.js ~ line 29 ~ loginRequest ~ data", data)
         await Storage.saveToken(data.token);
         await Storage.saveUserInfo({
           id: data._id,
@@ -42,7 +41,6 @@ function loginRequest(loginData) {
         Navigator.navigate("LoadingAthu");
       })
       .catch(err => {
-        console.log("bi loi", err);
         showMessage({
           message: "Sai tài khoản hoặc mật khẩu",
           type: "danger"
@@ -72,7 +70,6 @@ function loginSocial(loginData) {
         Navigator.navigate("LoadingAthu");
       })
       .catch(err => {
-        console.log("bi loi", err);
         showMessage({
           message: "Sai tài khoản hoặc mật khẩu",
           type: "danger"

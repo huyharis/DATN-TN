@@ -188,18 +188,12 @@ export default class GetCourse extends Component {
     }
 
     const { text, mean, realData } = this.state;
-    console.log("text", text);
-    console.log("mean", mean);
-    console.log("count", count);
     // const id = data.id;
     realData.map(async (val, index) => {
       if (val.text === text && val.mean === mean) {
-        console.log("ok", count);
         let { data } = this.state;
-        console.log("id filter", val._id);
         const resuilt = data.filter(valdata => valdata.id !== val._id);
         count = 0;
-        console.log(resuilt);
         await this.setState({ data: resuilt });
         const dataEnd = this.state.data;
         if (dataEnd.length === 0) {
@@ -212,7 +206,6 @@ export default class GetCourse extends Component {
   };
   render() {
     const { visible, start, timer, data, press, visibleEnd } = this.state;
-    console.log(visible);
     return (
       <View style={{ flex: 1 }}>
         {!start ? null : (
@@ -234,38 +227,38 @@ export default class GetCourse extends Component {
               >
                 {data
                   ? data.map((val, index) => {
-                      if (val.active) return null;
-                      else
-                        return (
-                          <TouchableOpacity
-                            key={index}
-                            onPress={() => this._handleCheck(val, index)}
+                    if (val.active) return null;
+                    else
+                      return (
+                        <TouchableOpacity
+                          key={index}
+                          onPress={() => this._handleCheck(val, index)}
+                        >
+                          <View
+                            style={{
+                              justifyContent: "center",
+                              alignItems: "center",
+                              height: 130,
+                              width: 80,
+                              backgroundColor:
+                                press === index ? "red" : "#E65100",
+                              borderRadius: 15,
+                              margin: 2
+                            }}
                           >
-                            <View
+                            <Text
                               style={{
-                                justifyContent: "center",
-                                alignItems: "center",
-                                height: 130,
-                                width: 80,
-                                backgroundColor:
-                                  press === index ? "red" : "#E65100",
-                                borderRadius: 15,
-                                margin: 2
+                                color: "white",
+                                fontSize: 20,
+                                textAlign: "center"
                               }}
                             >
-                              <Text
-                                style={{
-                                  color: "white",
-                                  fontSize: 20,
-                                  textAlign: "center"
-                                }}
-                              >
-                                {val.text}
-                              </Text>
-                            </View>
-                          </TouchableOpacity>
-                        );
-                    })
+                              {val.text}
+                            </Text>
+                          </View>
+                        </TouchableOpacity>
+                      );
+                  })
                   : null}
               </View>
             </ScrollView>

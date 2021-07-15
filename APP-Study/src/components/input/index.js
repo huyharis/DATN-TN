@@ -4,16 +4,15 @@ import { Input } from "react-native-elements";
 
 export default class InputCommon extends Component {
   onChangeStateHandle = (event = null) => {
-    const {stateName}= this.props
+    const { stateName } = this.props
     if (!stateName.id) {
       this.props.handleChange({
         [stateName]: event
       });
-    }else{
-      console.log('statename value: ',stateName.value)
+    } else {
       this.props.handleChange({
         [stateName.value]: event,
-        id:stateName.id
+        id: stateName.id
       });
     }
   };
@@ -57,7 +56,7 @@ export default class InputCommon extends Component {
   }
 }
 InputCommon.defaultProps = {
-  autoFocus:false,
+  autoFocus: false,
   placeholderTextColor: "white",
   leftIcon: null,
   placeholder: null,
@@ -75,11 +74,11 @@ InputCommon.defaultProps = {
 InputCommon.propTypes = {
   handleChange: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  stateName:PropTypes.oneOfType([
+  stateName: PropTypes.oneOfType([
     PropTypes.string.isRequired,
     PropTypes.object.isRequired,
   ]),
-  autoFocus:PropTypes.bool,
+  autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
   leftIcon: PropTypes.element,
   placeholder: PropTypes.string,

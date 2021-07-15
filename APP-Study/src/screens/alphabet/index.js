@@ -73,8 +73,6 @@ const AlphabetScreen = ({ navigation }) => {
     setLoadMore(true);
     try {
       const response = await WebService.getAlphabet(isSelect ? 'katakana' : 'hiragana', 28, page + 1);
-      console.log("🚀 ~ file: index.js ~ line 76 ~ loadMoreData ~ response", response)
-
       if (!response.result) return;
       setData([...data, ...response.result]);
       setPage(page + 1);

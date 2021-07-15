@@ -23,7 +23,6 @@ registerFalsed = data => {
 function registerRequest(registerData) {
   return dispatch => {
     dispatch({ type: typeAction.IS_LOADING_REGISTER });
-    console.log("reigister", registerData);
     WebService.register(registerData)
       .then(data => {
         dispatch(registerSuccess(data));
@@ -34,7 +33,6 @@ function registerRequest(registerData) {
         });
       })
       .catch(err => {
-        console.log("bi loi", err);
         showMessage({
           message: "Đăng ký thất bại",
           type: "danger"
