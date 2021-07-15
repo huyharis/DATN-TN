@@ -24,12 +24,8 @@ exports.getNotifyForUser = (req, res, next) => {
       next(err);
     });
 };
-exports.create = (req, res, next)  => {
-  console.log("oke");
-  console.log(req.body)
-  console.log(req.user)
+exports.create = (req, res, next) => {
   const { _id } = req.user;
-  console.log(_id);
   notifyService
     .create({ ...req.body }, _id)
     .then(response => {

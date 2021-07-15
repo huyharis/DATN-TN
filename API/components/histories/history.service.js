@@ -53,12 +53,12 @@ exports.upDateHistory = async (body, id_user) => {
       history = histories.find((history) => history.topic.toString() === topic);
     if (history) {
       let counts = 0
-    
-    contents.map((con) => {
-      if (con.rightAnwser !== 0) counts++;
-    });     
+
+      contents.map((con) => {
+        if (con.rightAnwser !== 0) counts++;
+      });
       history.totalAnwser++;
-      history.rightAnwser = counts; 
+      history.rightAnwser = counts;
       history.complete = history.totalAnwser / history.rightAnwser;
       history.dateStudy = Date.now;
 
@@ -66,7 +66,6 @@ exports.upDateHistory = async (body, id_user) => {
       contents.map((con) => {
         history.contents.map((his) => {
           if (con.content.toString() === his.content.toString()) {
-            console.log("con", his.totalAnwser, con.rightAnwser);
             newContents.push({
               content: his.content,
               rightAnwser: his.rightAnwser + con.rightAnwser,
@@ -127,59 +126,60 @@ exports.upDateHistory = async (body, id_user) => {
 };
 exports.getCurrent = async (id) => {
   try {
-    const user =await User.findById(id)
-    .populate({
-      select: "-contents",
-      path: "histories",
-      populate: { path: "topic",model:"Course",select:"title" },
-    })
-    const { histories } =user.toJSON()
+    const user = await User.findById(id)
+      .populate({
+        select: "-contents",
+        path: "histories",
+        populate: { path: "topic", model: "Course", select: "title" },
+      })
+    const { histories } = user.toJSON()
 
     const sortHis = histories.sort((a, b) => {
       return new Date(b.dateStudy) - new Date(a.dateStudy);
     });
-    let resu=[]
-    const len=sortHis.length
-    if(len >=5 )
-    for(let i=0;i<5;i++){
-      resu.push({
-        ...sortHis[i],background:`bg_background_topic_${i + 1}`
-      })
-    }else{
-      for(let i=0;i<len;i++){
+    let resu = []
+    const len = sortHis.length
+    if (len >= 5)
+      for (let i = 0; i < 5; i++) {
         resu.push({
-          ...sortHis[i],background:`bg_background_topic_${i + 1}`
-        })}
+          ...sortHis[i], background: `bg_background_topic_${i + 1}`
+        })
+      } else {
+      for (let i = 0; i < len; i++) {
+        resu.push({
+          ...sortHis[i], background: `bg_background_topic_${i + 1}`
+        })
+      }
     }
     return resu
   } catch (error) {
     throw error;
   }
 };
-exports.vocabulary= async(id,id_course)=>{
-    try {
-      console.log(id_course)
-      const user =await User.findById(id)
+exports.vocabulary = async (id, id_course) => {
+  try {
+    console.log(id_course)
+    const user = await User.findById(id)
       .populate({
         path: "histories",
-        populate: { path: "contents.content",model:"Content" },
+        populate: { path: "contents.content", model: "Content" },
         // populate: { path: "contents",model:"Content"},
       })
-      let oftenWrong=[],sometimesWrong=[],master=[]
+    let oftenWrong = [], sometimesWrong = [], master = []
 
-      const { histories } =user.toJSON()
-      const {contents=[]}=histories.find(his=>his.topic.toString()===id_course)||[]
-      contents.forEach(element => {
-        const ratio=(element.rightAnwser/element.totalAnwser) * 100
-        if(ratio <=30 )
+    const { histories } = user.toJSON()
+    const { contents = [] } = histories.find(his => his.topic.toString() === id_course) || []
+    contents.forEach(element => {
+      const ratio = (element.rightAnwser / element.totalAnwser) * 100
+      if (ratio <= 30)
         oftenWrong.push(element)
-        if(ratio > 20 && ratio <=60 )
+      if (ratio > 20 && ratio <= 60)
         sometimesWrong.push(element)
-        if(ratio>60)
+      if (ratio > 60)
         master.push(element)
-      });
-      return {oftenWrong,sometimesWrong,master}
-    } catch (error) {
-      throw  error
-    }
+    });
+    return { oftenWrong, sometimesWrong, master }
+  } catch (error) {
+    throw error
+  }
 }

@@ -1,28 +1,26 @@
 const courseService = require("./course.service");
 exports.searchCourse = (req, res, next) => {
   const { _id } = req.user;
-  console.log("cc");
-  const { q,public } = req.query;
+  const { q, public } = req.query;
   courseService
-    .searchCourse(_id, q,public)
+    .searchCourse(_id, q, public)
     .then((response) => res.json(response))
     .catch((e) => next(e));
 };
 exports.shareCourse = (req, res, next) => {
-  console.log("cc");
   const { _id } = req.user;
-  const {friend_id,course_id}=req.body
+  const { friend_id, course_id } = req.body
   courseService
-    .shareCourse(_id,course_id,friend_id)
-    .then((response) => res.json({success:true}))
+    .shareCourse(_id, course_id, friend_id)
+    .then((response) => res.json({ success: true }))
     .catch((err) => next(err));
 };
 exports.accept = (req, res, next) => {
   const { _id } = req.user;
-  const {course_id}=req.body
+  const { course_id } = req.body
   courseService
-    .accept(_id,course_id)
-    .then((response) => res.json({success:true}))
+    .accept(_id, course_id)
+    .then((response) => res.json({ success: true }))
     .catch((err) => next(err));
 };
 exports.createCourse = (req, res, next) => {

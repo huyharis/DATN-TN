@@ -12,25 +12,30 @@ class socket {
     io.on("connection", async (socket) => {
       const { user_id } = socket.handshake.query;
       this.sockett = socket;
-      if (user_id)
+      if (user_id) {
         await User.findOneAndUpdate(
           { _id: user_id },
           { $set: { isOnline: true, socketId: socket.id } }
         );
+      }
+
+      socket.on('chat message', (msg) => {
+        console.log("🚀 ~ file: index.js ~ line 23 ~ socket ~ socket.on ~ msg", msg)
+        socket.emit('chat message', msg)
+      })
       console.log("connect", "user_id", user_id, "socket id", socket.id);
 
       socket.on("disconnect", async function () {
-        if (user_id)
+        if (user_id) {
           await User.findOneAndUpdate(
             { _id: user_id },
             { $set: { isOnline: false } }
           );
+        }
         console.log("disconnect", user_id);
       });
       ///
       socket.on("PLAYER_ANSWER", (data) => {
-        console.log("INFORmation");
-        console.log("data nhan", data);
         this.INFORMATION_GAME(data);
       });
       // socket.on("END_GAME", (data) => {
@@ -52,32 +57,18 @@ class socket {
     const me_socketid = me.socketId;
     const friend_socketid = friend.socketId;
     const RAN_DOM_ROOM = await room.createRanDomRoom(me._id);
-    console.log("thang moi:::", me_socketid);
     io.sockets.connected[me_socketid].join(RAN_DOM_ROOM);
-
-    // console.log(
-    //   "thằng tạo",
-    //   RAN_DOM_ROOM,
-    //   this.io.sockets.connected[me_socketid].id
-    // );
-    // this.io.to(RAN_DOM_ROOM).emit("ROOM_HAS_CREATED", "Room has created");
-    // this.io.on("USER_NO_ACCEPT", (user) => {
-    //   room.leave(user.room);
-    //   this.socket.leave(user.room);
-    // });
-    // this.io.sockets.connected[friendID].join(RAN_DOM_ROOM);
-    // this.io.sockets.connected[meID].join(RAN_DOM_ROOM);
-    // this.io
-    //   .to(RAN_DOM_ROOM)
-    //   .emit("private room created", `${RAN_DOM_ROOM} has to created`);
-    // this.socket.on("RIGHT_ANSWER", data => {
-    //  console.log(data,RAN_DOM_ROOM);
-    //   this.io
-    //     .to(RAN_DOM_ROOM)
-    //     .emit("RIGHT_ANSWER", { id: this.user_id, answer: data });
-    // });
     return RAN_DOM_ROOM;
   }
+
+  static async CreateRoomToChat(me, friend) {
+    const me_socketid = me.socketId;
+    const friend_socketid = friend.socketId;
+    const RAN_DOM_ROOM = await room.createRanDomRoom(me._id);
+    io.sockets.connected[me_socketid].join(RAN_DOM_ROOM);
+    return RAN_DOM_ROOM;
+  }
+
   static UserNoAccept(room_user, user) {
     this.io.to(user.socketId).emit("USER_NO_ACCEPT", "Friend no accept");
     room.deleteRoom(room_user);
@@ -94,7 +85,7 @@ class socket {
         throw "Lời Mời HẾT HẠN";
       }
       const me_socketid = me.socketId;
-      console.log("thang chap nhan::::", me_socketid);
+      console.log("nguoi duoc moi", me_socketid);
       io.sockets.connected[me_socketid].join(room_user);
       const data = {
         room: room_user,
@@ -108,7 +99,7 @@ class socket {
       // const friend_socketid = friend.socketId;
 
       console.log(
-        "thằng chấp nhận vào chơi",
+        "chap nhan vao choi",
         room_user,
         this.io.sockets.connected[me_socketid].id
       );

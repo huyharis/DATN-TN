@@ -18,10 +18,12 @@ exports.getNotifyForUser = async (_id, pageNumber, limit) => {
     })
     .select("-recerUser");
   const count = await Notify.countDocuments({ recerUser: { $in: _id } });
-  const notiForCount =  await Notify.find({$and:[
-    {recerUser: { $nin: _id }},
-    {read_by: { $in: _id }}
-  ]});
+  const notiForCount = await Notify.find({
+    $and: [
+      { recerUser: { $nin: _id } },
+      { read_by: { $in: _id } }
+    ]
+  });
   const result = noti.map((no) => {
     return {
       ...no.toJSON(),
@@ -36,12 +38,11 @@ exports.getNotifyForUser = async (_id, pageNumber, limit) => {
     total: count,
     page: pageNumber,
     pageSize: result.length,
-    notSeenNumber:notiForCount.length,
+    notSeenNumber: notiForCount.length,
     result: [...result],
   };
 };
 exports.create = async (data, _id) => {
-  console.log("noti",data)
   const result = await Notify.create({ ...data, sentUser: _id });
   const user = await User.findOne({ _id: data.recerUser });
   if (user.isOnline) {
@@ -58,10 +59,9 @@ exports.create = async (data, _id) => {
     };
     socket.pushNotiToUser(user.socketId, { ...notiAva, read_by: false });
   }
-  else{
-    if(messSen(data.contentMess.type ))
-  {
-      const mess = user.tokenNotify.map(val =>{
+  else {
+    if (messSen(data.contentMess.type)) {
+      const mess = user.tokenNotify.map(val => {
         return {
           to: val,
           sound: "default",
@@ -87,7 +87,7 @@ exports.delete = async (_id) => await Notify.findOneAndDelete({ _id });
 
 exports.updateSeen = async (id_notify, _id) => {
   await Notify.updateMany(
-    {recerUser: { $in: _id } },
+    { recerUser: { $in: _id } },
     { $push: { read_by: _id } }
   );
   // await Notify.updateMany(

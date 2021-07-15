@@ -47,6 +47,7 @@ app.use("/api/challenge", require("./components/challenge/challenge.route"));
 app.use("/api/notify", require("./components/notify/notify.route"));
 app.use("/api/game", require("./components/game/game.route"));
 app.use("/api/alphabet", require("./components/alphabet/alphabet.route"));
+app.use("/api/room", require("./components/rooms/room.route"));
 // handle error
 app.use(require("./middlewares/err.middleware"));
 (server = require("http").createServer(app)),
@@ -58,3 +59,13 @@ app.use(require("./middlewares/err.middleware"));
 
 var { socket } = require("./socketio");
 socket.initSocket(io);
+// const RoomChat = require("./components/rooms/room.model");
+// let changeStreamRoom = RoomChat.watch();
+
+// changeStreamRoom.on("change", async (data) => {
+//   console.log("Phòng " + data.documentKey._id + "Vừa có 1 tin nhắn mới");
+//   io.emit(
+//     "changeRoomChat",
+//     await RoomChat.findById(data.documentKey._id).populate("message.users")
+//   );
+// });

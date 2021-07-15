@@ -4,23 +4,21 @@ const { Course, Content, User } = db;
 const AvartaCtr = require("../avatars/avatar.controller");
 const Noti = require("../notify/notify.service")
 
-exports.accept=async(user_id,course_id)=>{
+exports.accept = async (user_id, course_id) => {
   try {
-    const user = await User.find({_id:user_id,courses:{$in:course_id}})
-    console.log(user)
-    if(user.length) throw error.courseOfFriendIsExit
-   await User.findByIdAndUpdate({_id:user_id},{$push:{courses:course_id}})
+    const user = await User.find({ _id: user_id, courses: { $in: course_id } })
+    if (user.length) throw error.courseOfFriendIsExit
+    await User.findByIdAndUpdate({ _id: user_id }, { $push: { courses: course_id } })
     return
   } catch (error) {
-    throw(error)
+    throw (error)
   }
 
 }
-exports.shareCourse=async(user_id,course_id,friend_id)=>{
+exports.shareCourse = async (user_id, course_id, friend_id) => {
   try {
-    const user = await User.find({_id:friend_id,courses:{$in:course_id}})
-    console.log(user)
-    if(user.length) throw error.courseOfFriendIsExit
+    const user = await User.find({ _id: friend_id, courses: { $in: course_id } })
+    if (user.length) throw error.courseOfFriendIsExit
     Noti.create(
       {
         recerUser: friend_id,
@@ -33,7 +31,7 @@ exports.shareCourse=async(user_id,course_id,friend_id)=>{
     );
     return
   } catch (error) {
-    throw(error)
+    throw (error)
   }
 
 }
@@ -46,14 +44,12 @@ exports.makeQuestion = async (id, _id) => {
 
 exports.learn = (id, _id) => {
   try {
-    console.log(id);
     return this.makeQuestion(id, _id);
   } catch (error) {
     console.log(error);
   }
 };
 exports.searchCourse = async (id, q, ispublic) => {
-  console.log(ispublic);
   if (!ispublic) {
     const user = await User.findById(id)
       .populate({
@@ -74,8 +70,8 @@ exports.searchCourse = async (id, q, ispublic) => {
     course = courses.filter((e) => {
       if (e.title.toLowerCase().indexOf(q) > -1) return true;
     });
-    course=course.map(val=>{
-      return{
+    course = course.map(val => {
+      return {
         ...val,
         avatar: AvartaCtr.getImgUrl(course.avatar)
       }
@@ -91,8 +87,8 @@ exports.searchCourse = async (id, q, ispublic) => {
     course = course.filter((e) => {
       if (e.title.toLowerCase().indexOf(q) > -1) return true;
     });
-    course=course.map(val=>{
-      return{
+    course = course.map(val => {
+      return {
         ...val,
         avatar: AvartaCtr.getImgUrl(course.avatar)
       }
@@ -102,7 +98,6 @@ exports.searchCourse = async (id, q, ispublic) => {
 };
 exports.findById = async (id, id_user) => {
   try {
-    console.log(id_user);
     const user = await User.findById(id_user)
       .populate({
         select: "-contents",

@@ -1,6 +1,5 @@
 const fetch = require('node-fetch');
-module.exports =async (mess)=>{
-  console.log(mess)
+module.exports = async (mess) => {
   try {
     await fetch('https://exp.host/--/api/v2/push/send', {
       method: 'POST',
@@ -14,6 +13,6 @@ module.exports =async (mess)=>{
   } catch (error) {
     throw error
   }
-  
-  
+
+
 }

@@ -48,7 +48,6 @@ exports.setUsername = async ({ username, newName, password, _id }) => {
 };
 
 exports.login = async ({ username, password, email }) => {
-  console.log("sadasd");
   const user = await this.findOne({ ...(email ? { email } : { username }) });
   if (user && bcrypt.compareSync(password, user.hash)) {
     const u_user = await this.findByIdAndUpdate({
@@ -124,7 +123,6 @@ exports.addFriend = async (body, _id) => {
         _id: friend_id,
         requestFriend: { $in: _id },
       });
-      console.log(hasRequest);
       if (hasRequest.length) throw error.friendRequestNotFound;
 
       await User.updateOne(
@@ -188,7 +186,6 @@ exports.friends = async (_id) => {
 };
 exports.search = async (_id, q) => {
   try {
-    console.log(q.toLowerCase())
     const myRe = new RegExp(`${q.toLowerCase()}`);
     const result = await User.find({
       username: { $regex: myRe },
@@ -198,13 +195,11 @@ exports.search = async (_id, q) => {
       debugger;
       var type = "notFriend";
       u.friends.map((id) => {
-        console.log(typeof id, typeof _id);
         if (id.toString() === _id.toString()) {
           type = "isFriend";
         }
       });
       u.requestFriend.map((id) => {
-        console.log(typeof id, typeof _id);
         if (id.toString() === _id.toString()) {
           type = "isRequest";
         }

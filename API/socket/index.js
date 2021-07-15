@@ -22,7 +22,6 @@ exports.createServer = ({ server }) => {
 
         const userId = socket.handshake.query.id || socket.handshake.query.user_id;
         userService.findByIdAndUpdate({ _id: userId, isOnline: true, socketId: socket.id }).then(res => res)
-        console.log(`userId: ${userId} -> socketId: ${socket.id}`)
         socket.on(EVENTS.DISCONNECT, reason => {
             userService.findByIdAndUpdate({ _id: userId, isOnline: false, socketId: '' }).then(res => res)
         })

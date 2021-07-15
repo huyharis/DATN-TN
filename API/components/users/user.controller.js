@@ -56,12 +56,10 @@ exports.createUser = (role = "") => (req, res, next) => {
       })
     )
     .catch(err => next(err));
-    console.log("🚀 ~ file: user.controller.js ~ line 53 ~ req.body", req.body)
 
 };
 
 exports.login = (role = "") => (req, res, next) => {
-  console.log("🚀 ~ file: user.controller.js ~ line 66 ~ (req.body", (req.body))
 
   userService
     .login(req.body)
@@ -97,7 +95,6 @@ exports.me = (req, res, next) => {
   userService
     .getMe(_id)
     .then(response => {
-      console.log(response.toJSON().avatar);
       res.json({
         ...response.toJSON(),
         avatar: avatarCtr.getImgUrl(response.toJSON().avatar)
@@ -199,9 +196,9 @@ exports.friends = (req, res, next) => {
 };
 exports.search = (req, res, next) => {
   const { _id } = req.user;
-  const {q} = req.query
+  const { q } = req.query
   userService
-    .search(_id,q)
+    .search(_id, q)
     .then(response => res.json(response))
     .catch(e => next(e));
 };
