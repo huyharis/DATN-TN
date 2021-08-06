@@ -59,6 +59,7 @@ const PronounceScreen = ({ navigation }) => {
               key={index}
               title={item.mean}
               subtitle={item.text}
+              onPress={() => { navigation.navigate('VoiceCheck') }}
               containerStyle={styles.containerStyle}
               titleStyle={styles.titleStyle}
               subtitleStyle={styles.subtitleStyle}

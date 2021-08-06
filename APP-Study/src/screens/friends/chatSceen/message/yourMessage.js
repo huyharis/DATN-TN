@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 
 const YourMessage = (props) => {
-  const { item } = props;
+  const { item, avatar } = props;
   const renderMsg = () => {
     // if (item.msg.indexOf("https://" != -1)) {
     // return (
@@ -12,7 +12,7 @@ const YourMessage = (props) => {
     //   />
     // );
     // } else {
-    return <Text style={{ color: "#FFF", fontSize: 14 }}>{item.msg}</Text>;
+    return <Text style={{ color: "#000", fontSize: 14 }}>{item.msg}</Text>;
     // }
   };
 
@@ -38,7 +38,7 @@ const YourMessage = (props) => {
     >
       <Image
         style={{ width: 50, height: 50, borderRadius: 25 }}
-        source={iconArray[0].src}
+        source={{ uri: avatar }}
       />
       <View>
         <Text style={{ fontSize: 16, fontWeight: "bold", marginLeft: 10 }}>
@@ -47,7 +47,7 @@ const YourMessage = (props) => {
         <View
           style={{
             ...styles.messageStyle,
-            // backgroundColor: item.check ? "#FFF" : "#00a1e1",
+            backgroundColor: "#00a1e1",
           }}
         >
           {renderMsg()}

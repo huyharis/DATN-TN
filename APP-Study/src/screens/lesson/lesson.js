@@ -86,11 +86,11 @@ class Lesson extends Component {
                     onPress={() => this._handleQuiz(data._id, data.lock)}
                   >
                     <View>
-                      <Text style={{ color: "white", fontSize: 20 }}>
+                      <Text style={{ color: "white", fontSize: 15 }}>
                         {data.title}
                       </Text>
                       <View>
-                        <Text style={{ color: "blue", fontSize: 10 }}>
+                        <Text style={{ color: "blue", fontSize: 8 }}>
                           Question: {data.sumQuestion}
                         </Text>
                         {/* <Text style={{ color: "white", fontSize: 10 }}>

@@ -27,6 +27,7 @@ import AddTopicScreen from "../screens/studyToTopic/addTopic";
 import PronounceScreen from "../screens/pronounce";
 import FinishTestScreen from "../screens/course-test/finishTest";
 import ChatScreen from "../screens/friends/chatSceen";
+import VoiceCheck from "../screens/voiceCheck";
 
 const DrawerNavigatorConfig = {
   initialRouteName: "DashBoard",
@@ -80,6 +81,9 @@ const CourseStackNavigator = createStackNavigator(
     FinishTestScreen: {
       screen: FinishTestScreen,
     },
+    VoiceCheck: {
+      screen: VoiceCheck
+    }
   },
   config
 );

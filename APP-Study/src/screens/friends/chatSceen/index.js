@@ -16,35 +16,29 @@ import { showMessage } from "react-native-flash-message";
 
 const ChatScreen = ({ navigation }) => {
   const [isLoading, setLoading] = useState(false);
-  const [check, setCheck] = useState(false);
   const [user, setUser] = useState({});
   const [msg, setMsg] = useState("");
-  const [icon, setIcon] = useState([]);
   const [data, setData] = useState([]);
-  const [arrMsg, setArrMsg] = useState([])
   const friendInfo = navigation.state?.params?.item;
   const userInfo = navigation.state?.params?.user
   const roomId = navigation.state?.params?.dataRoom?.dataRoom?._id
 
   useEffect(() => {
-    WebService.joinRoom([userInfo.id, friendInfo._id]).then(dataRoom => {
-      console.log("🚀 ~ file: index.js ~ line 32 ~ useEffect ~ data", dataRoom.dataRoom)
-      setData(dataRoom.dataRoom.message.reverse());
-    }).catch(err => {
-      console.log('loi get data room', err);
-    })
-    setUser(navigation.state?.params?.user)
-    getMessage(getMessages)
+    const getMessage = setInterval(() => {
+      WebService.joinRoom([userInfo.id, friendInfo._id]).then(dataRoom => {
+        setData(dataRoom.dataRoom.message.reverse());
+      }).catch(err => {
+        console.log('loi get data room', err);
+      })
+      setUser(navigation.state?.params?.user)
+    }, 500)
+    return () => clearInterval(getMessage)
   }, [])
 
-  const getMessages = (msg) => {
-  }
 
   const onSendMsg = async (src) => {
-    await WebService.addMessage({ id: user.id, msg: msg, roomId: roomId }).then(async (data) => {
+    await WebService.addMessage({ id: user.id, msg: msg, roomId: roomId }).then(async (dataMsg) => {
       chatSocket(msg)
-      setArrMsg([...arrMsg, msg])
-      setData(arrMsg)
       setMsg("");
     }).catch(error => {
       showMessage({ message: error, type: "danger" })
@@ -104,7 +98,6 @@ const ChatScreen = ({ navigation }) => {
             inverted
             data={data}
             renderItem={(item) => {
-              console.log("🚀 ~ file: index.js ~ line 135 ~ ChatScreen ~ item", item)
 
               // if (item.msg.indexOf("https://") != -1) {
               //   setCheck(!check);
@@ -112,7 +105,7 @@ const ChatScreen = ({ navigation }) => {
               if (user.id == item.item?.users?._id) {
                 return <MyMessage item={item.item} />;
               } else {
-                return <YourMessage item={item.item} />;
+                return <YourMessage item={item.item} avatar={friendInfo.avatar} />;
               }
             }}
             keyExtractor={(item, index) => index.toString()}

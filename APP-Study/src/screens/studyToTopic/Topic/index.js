@@ -18,26 +18,7 @@ function Topic(props) {
 
   _handleAction = () => {
     props._actionDeleteCourese(props.id)
-            setVisible(false);
-
-    // const id = { id: props.id };
-    // Service.deleteCourses(id)
-    //   .then(data => {
-    //     showMessage({
-    //       message: "Xóa thành công",
-    //       type: "success"
-    //     });
-    //     props.dispatch(CoursesACtion._deleteCourses(props.id));
-    //   })
-    //   .catch(err => {
-    //     setVisible(false);
-    //     showMessage({
-    //       message: "Xóa thất bại",
-    //       type: "danger"
-    //     });
-    //   });
-    // console.log("ok");
-
+    setVisible(false);
   };
   const _handleOnModal = () => {
     setVisible(true);
@@ -45,7 +26,7 @@ function Topic(props) {
   const _handleCancelModal = () => {
     setVisible(false);
   };
-  const _handleToDetail=()=>{
+  const _handleToDetail = () => {
     props._handleGoToDetail(props.id)
   }
   const swipeoutBtns = [

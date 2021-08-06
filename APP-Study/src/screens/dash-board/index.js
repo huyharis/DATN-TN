@@ -69,26 +69,6 @@ const DashBoardScreen = ({ navigation }) => {
     });
   };
 
-  /**  const FlatItem = ({ item, onSelect }) => {
-    const { id } = item;
-    return (
-      <ViewVertical style={id === "1" ? styles.boxFirst : styles.boxItem}>
-        <ImageBackground
-          source={item.background}
-          resizeMode="cover"
-          style={styles.backgroundItem}
-          imageStyle={styles.imageStyle}
-        >
-          <TouchableOpacity onPress={onSelect} style={styles.boxStyle}>
-            <Text style={styles.textName}>{item.nameJP}</Text>
-            <Text style={styles.textItem}>{item.spell}</Text>
-            <Text style={styles.textItem}>{item.nameVI}</Text>
-          </TouchableOpacity>
-        </ImageBackground>
-      </ViewVertical>
-    );
-  };*/
-
   const FlatItem = ({ item, onSelect, index }) => {
     const { id } = item;
     return (
@@ -125,14 +105,6 @@ const DashBoardScreen = ({ navigation }) => {
 
   // const BadgedIcon = withBadge(1)(<Image source={ic_notifications}/>);
 
-  const GAME = [
-    {
-      id: "1",
-      icon: background,
-      name: "Bài cào",
-      navigate: "AlphabetScreen",
-    },
-  ];
 
   const getPublicCourse = async () => {
     setLoading(true);
@@ -273,21 +245,6 @@ const DashBoardScreen = ({ navigation }) => {
             onPress={() => navigation.navigate("Lesson")}
           />
 
-          {/* <ListItem
-            containerStyle={styles.containerStyleBox}
-            leftAvatar={{ source: background }}
-            title={"チャレンジラン"}
-            subtitle={"Đường đua tranh tài"}
-            onPress={()=>navigation.navigate("GetChallenge")}
-            rightElement={<Image source={ic_arrow_right} />}
-            rightContentContainerStyle={{ backgroundColor: "transparent" }}
-          /> */}
-
-          {/* {GAME.map((item, index) => {
-            return (
-
-            )
-          })} */}
         </ViewVertical>
       </ScrollView>
 

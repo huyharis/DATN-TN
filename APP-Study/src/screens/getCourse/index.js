@@ -64,7 +64,7 @@ export default class GetCourse extends Component {
     this.props.navigation.navigate('MemmoryCard', { data: data });
   };
   //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const idNext = nextProps.navigation.getParam('idCourese');
     const id = this.props.navigation.getParam('idCourese');
 

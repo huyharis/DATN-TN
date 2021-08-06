@@ -104,7 +104,7 @@ class ChoiceTestScreen extends Component {
     this.getData(id);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const idNext = nextProps.navigation.getParam("idCourse");
     const id = this.props.navigation.getParam("idCourse");
 

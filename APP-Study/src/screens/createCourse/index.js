@@ -143,7 +143,7 @@ class Home extends Component {
       submitCreateCourse: this.submitCreateCourse
     });
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.navigation.getParam("language") !== nextProps.navigation.getParam("language")) {
       const { data } = this.state
       let language = nextProps.navigation.getParam("language")
