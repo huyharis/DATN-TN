@@ -73,6 +73,10 @@ const AddTopicScreen = ({ navigation }) => {
     // console.log(res);
   };
 
+  const getAllCourse = async () => {
+    await WebService.getCourses()
+  }
+
   const saveCourse = async () => {
     if (!title) {
       showMessage({
@@ -89,7 +93,6 @@ const AddTopicScreen = ({ navigation }) => {
       return;
     }
     if (contents.length < 2) {
-      đ
       showMessage({
         message: "Phải thêm ít nhất 2 thẻ ghi nhớ",
         type: "warning",
@@ -102,7 +105,6 @@ const AddTopicScreen = ({ navigation }) => {
     data.append("avatar", image);
     data.append("title", title);
     data.append('content', JSON.stringify(contents));
-
     try {
       if (navigation.getParam('idCourse')) {
         await WebService.updateContentOnCourse(navigation.getParam('idCourse'), data)
@@ -126,10 +128,6 @@ const AddTopicScreen = ({ navigation }) => {
       });
     }
     setLoading(false);
-  }
-
-  const getAllCourse = async () => {
-    await WebService.getCourses()
   }
 
   const addContents = () => {

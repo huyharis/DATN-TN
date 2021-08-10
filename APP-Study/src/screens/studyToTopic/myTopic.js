@@ -291,10 +291,11 @@ const MyTopicScreen = ({ navigation }) => {
               inputContainerStyle={styles.inputContainerStyle}
               inputStyle={styles.inputStyle}
               onChangeText={handleSearch}
-              // rightIconContainerStyle={styles.rightIconContainerStyle}
+            // rightIconContainerStyle={styles.rightIconContainerStyle}
             />
             {data &&
               data?.courses?.map((item, index) => {
+                console.log("🚀 ~ file: myTopic.js ~ line 298 ~ data?.courses?.map ~ item", item)
                 return (
                   <ListItem
                     key={index}
@@ -304,7 +305,7 @@ const MyTopicScreen = ({ navigation }) => {
                     leftElement={
                       <Image
                         source={{
-                          uri: `https://japaness-2020.herokuapp.com/api/avatars/${item.avatar}`,
+                          uri: `http://192.168.1.196:3000/api/avatars/${item.avatar}`,
                         }}
                         style={styles.imageItem}
                       />

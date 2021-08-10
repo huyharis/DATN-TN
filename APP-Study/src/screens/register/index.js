@@ -60,9 +60,9 @@ const Register = ({ navigation }) => {
         // }
         showMessage({
           message: "Đăng kí thành công",
-            type: "success"
+          type: "success"
         });
-        // navigation.navigate("Login");
+        navigation.navigate("Login");
       })
       .catch((err) => {
         console.log("Errr", err);
