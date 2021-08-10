@@ -32,8 +32,9 @@ exports.createCourse = (req, res, next) => {
 };
 
 exports.updateContentOnCourse = (req, res, next) => {
+  const { id } = req.params;
   courseService
-    .updateContentOnCourse(req.body)
+    .updateContentOnCourse(id, req.body)
     .then((response) => res.json(response))
     .catch((err) => next(err));
 };

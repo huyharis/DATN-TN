@@ -6,6 +6,8 @@ router.get("/getRoomChatById", async (req, res) => {
   try {
     let { userId, partnerId } = req.query;
     let getData = await RoomChatModel.findOne({ users: { $in: [userId, partnerId] } }).populate("message.users");
+    // let getData = await RoomChatModel.find({ users: { $or: [userId, partnerId] } }).populate("message.users");
+    console.log("🚀 ~ file: room.route.js ~ line 9 ~ router.get ~ getData", getData)
 
     if (getData) {
       res.json({

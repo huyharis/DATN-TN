@@ -179,12 +179,12 @@ exports.removeContent = (id, contents) => {
   ]);
 };
 
-exports.updateContentOnCourse = async (body) => {
-  const { course_id, content } = body;
+exports.updateContentOnCourse = async (id, body) => {
+  const { content } = body;
   await Content.deleteMany({ id: content });
   const contents = await Content.create(content);
-  await Course.findByIdAndUpdate({ id: course_id }, { $pull: { content } });
-  return Course.findByIdAndUpdate({ id: course_id }, { $push: { contents } });
+  await Course.findByIdAndUpdate({ id: id }, { $pull: { content } });
+  return Course.findByIdAndUpdate({ id: id }, { $push: { contents } });
 };
 
 exports.create = async (body, req) => {
