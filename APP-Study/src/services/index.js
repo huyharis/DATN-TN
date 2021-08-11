@@ -67,8 +67,11 @@ export default class WebService {
   static getQuizDetail = async (id) => {
     return api.get(`/topics/${id}/learn`);
   };
-  static searchTopic = (title, isPublic = true) => {
-    return api.get(`/courses/find?q=${title}&public=${isPublic}`)
+  static searchTopic = (title) => {
+    return api.get(`/courses/find?q=${title}`)
+  }
+  static searchTopicPublic = (title) => {
+    return api.get(`/courses/find-public?q=${title}`)
   }
 
   // History

@@ -14,25 +14,12 @@ import styles from "./styles";
 import { ic_arrow_back, banner } from "../../assets";
 
 import webservice from "../../services";
-import { change_alias } from "../../untils/helper";
+import { useDebounce } from "../../hook/debouncedHook";
 
 const StudyTopicScreen = ({ navigation }) => {
   const [data, setData] = useState([]);
-
-  const handleSearch = async (value) => {
-    // const search = await data.filter(
-    //   (item) => change_alias(item.title).toLowerCase().indexOf(value) >= 0
-    // );
-    try {
-      const search = await webservice.searchTopic(value);
-      setData(search);
-    } catch(error) {
-      showMessage({
-        message: getErrorMessage(error),
-        type: "danger",
-      });
-    }   
-  };
+  const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearchTerm = useDebounce(searchTerm, 30);
 
   const getData = async () => {
     try {
@@ -49,7 +36,26 @@ const StudyTopicScreen = ({ navigation }) => {
     getData();
   }, []);
 
-  const { state, navigate } = navigation;    
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      handleSearch(debouncedSearchTerm).then((results) => {
+        setData(results);
+      });
+    } else {
+      getData()
+    }
+  }, [debouncedSearchTerm])
+
+  const handleSearch = async (value) => {
+    try {
+      const search = await webservice.searchTopicPublic(value);
+      return search;
+    } catch (error) {
+      console.log('error', error);
+      return [];
+    }
+  };
+  const { state, navigate } = navigation;
 
   return (
     <ViewVertical style={{ backgroundColor: "#fff", flex: 1 }}>
@@ -92,8 +98,8 @@ const StudyTopicScreen = ({ navigation }) => {
           containerStyle={styles.containerStyle}
           inputContainerStyle={styles.inputContainerStyle}
           inputStyle={styles.inputStyle}
-          onChangeText={handleSearch}
-          // rightIconContainerStyle={styles.rightIconContainerStyle}
+          onChangeText={(e) => setSearchTerm(e)}
+        // rightIconContainerStyle={styles.rightIconContainerStyle}
         />
         {data &&
           data.map((item, index) => {
