@@ -49,52 +49,58 @@ exports.learn = (id, _id) => {
     console.log(error);
   }
 };
-exports.searchCourse = async (id, q, ispublic) => {
-  if (!ispublic) {
-    const user = await User.findById(id)
-      .populate({
-        path: "courses",
-        populate: { path: "contents" },
-        options: { sort: "-create_at" },
-      })
-      .select("-hash");
-    let {
-      avatar,
-      username,
-      _id,
-      courses,
-      create_at,
-      ...userExceptField
-    } = user.toJSON();
-    console.log(courses);
-    course = courses.filter((e) => {
-      if (e.title.toLowerCase().indexOf(q) > -1) return true;
-    });
-    course = course.map(val => {
-      return {
-        ...val,
-        avatar: AvartaCtr.getImgUrl(course.avatar)
-      }
+exports.searchCourse = async (id, q) => {
+  console.log("🚀 ~ file: course.service.js ~ line 53 ~ exports.searchCourse= ~ q", q)
+  const user = await User.findById(id)
+    .populate({
+      path: "courses",
+      populate: { path: "contents" },
+      options: { sort: "-create_at" },
     })
-    return course;
-  } else {
-    let course = await Course.find({
-      type: "public",
-    })
-      .populate("contents")
-      .lean();
+  console.log("🚀 ~ file: course.service.js ~ line 55 ~ exports.searchCourse= ~ user", user)
+  let courses = user.courses
+  console.log("🚀 ~ file: course.service.js ~ line 70 ~ exports.searchCourse= ~ courses", courses)
 
-    course = course.filter((e) => {
-      if (e.title.toLowerCase().indexOf(q) > -1) return true;
-    });
-    course = course.map(val => {
-      return {
-        ...val,
-        avatar: AvartaCtr.getImgUrl(course.avatar)
-      }
-    })
-    return course
-  }
+  let test = courses.filter((e) => e.title.toLowerCase() === q.toLowerCase())
+  console.log("🚀 ~ file: course.service.js ~ line 74 ~ exports.searchCourse= ~ test", test)
+  return test;
+  // } else {
+  //   let course = await Course.find({
+  //     type: "public",
+  //   })
+  //     .populate("contents")
+  //     .lean();
+
+  //   course = course.filter((e) => {
+  //     if (e.title.toLowerCase().indexOf(q) > -1) return true;
+  //   });
+  //   course = course.map(val => {
+  //     return {
+  //       ...val,
+  //       avatar: AvartaCtr.getImgUrl(course.avatar)
+  //     }
+  //   })
+  //   return course
+  // }
+};
+exports.searchCoursePublic = async (q) => {
+  let course = await Course.find({
+    type: "public",
+  })
+    .populate("contents")
+    .lean();
+
+  course = course.filter((e) => {
+    if (e.title.toLowerCase().indexOf(q.toLowerCase()) > -1) return true;
+  });
+  course = course.map(val => {
+    return {
+      ...val,
+      avatar: AvartaCtr.getImgUrl(course.avatar)
+    }
+  })
+  console.log("🚀 ~ file: course.service.js ~ line 102 ~ exports.searchCoursePublic= ~ course", course)
+  return course
 };
 exports.findById = async (id, id_user) => {
   try {

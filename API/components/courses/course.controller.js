@@ -1,12 +1,19 @@
 const courseService = require("./course.service");
 exports.searchCourse = (req, res, next) => {
   const { _id } = req.user;
-  const { q, public } = req.query;
+  const { q } = req.query;
   courseService
-    .searchCourse(_id, q, public)
+    .searchCourse(_id, q)
     .then((response) => res.json(response))
     .catch((e) => next(e));
 };
+exports.searchCoursePublic = (req, res, next) => {
+  const { q } = req.query;
+  courseService
+    .searchCoursePublic(q)
+    .then((response) => res.json(response))
+    .catch((e) => next(e));
+}
 exports.shareCourse = (req, res, next) => {
   const { _id } = req.user;
   const { friend_id, course_id } = req.body

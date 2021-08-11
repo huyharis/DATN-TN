@@ -6,6 +6,7 @@ const schemas = require('./course.validate')
 const avartarCtrl = require('../avatars/avatar.controller')
 
 router.get('/find', userCtrl.authentication(), courseCtrl.searchCourse);
+router.get('/find-public', userCtrl.authentication(), courseCtrl.searchCoursePublic);
 
 router.get('/public', userCtrl.authentication(), courseCtrl.findByPublic);
 
