@@ -34,9 +34,9 @@ app.use(
   swaggerUi.setup(swaggerDocument, { explorer: true })
 );
 app.use("/api/assets", express.static(path.join(__dirname, "assets")));
+app.use("/api/courses", require("./components/courses/course.route"));
 app.use("/api/users", require("./components/users/user.route"));
 app.use("/api/avatars", require("./components/avatars/avatar.route"));
-app.use("/api/courses", require("./components/courses/course.route"));
 app.use("/api/topics", require("./components/topics/topic.route"));
 app.use(
   "/api/vocabularies",

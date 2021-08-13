@@ -40,6 +40,7 @@ exports.createCourse = (req, res, next) => {
 
 exports.updateContentOnCourse = (req, res, next) => {
   const { id } = req.params;
+  console.log("🚀 ~ file: course.controller.js ~ line 43 ~ req.params", req.params)
   courseService
     .updateContentOnCourse(id, req.body)
     .then((response) => res.json(response))
