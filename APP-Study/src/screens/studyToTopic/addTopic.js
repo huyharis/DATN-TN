@@ -104,7 +104,7 @@ const AddTopicScreen = ({ navigation }) => {
     let data = new FormData();
     data.append("avatar", image);
     data.append("title", title);
-    data.append('content', JSON.stringify(contents));
+    data.append('content', contents);
     try {
       if (navigation.getParam('idCourse')) {
         await WebService.updateContentOnCourse(navigation.getParam('idCourse'), data)

@@ -101,7 +101,6 @@ const LeaderBoardScreen = ({ navigation }) => {
               {board && board[2] ? board[2].username : ""}
             </Text>
             <Text style={styles.point}>
-              {" "}
               {board && board[2] ? board[2].markHight.challenge : ""}
             </Text>
             {/* <Paragraph children="Mamie Price" style={styles.nameText} />
@@ -135,64 +134,6 @@ const LeaderBoardScreen = ({ navigation }) => {
             )
           }
         })}
-
-
-
-        {/* <View style={{ flexDirection: "row" }}>
-          <View style={styles.level}>
-            <Image source={up_arrow} style={{ width: 10, height: 10 }} />
-            <Paragraph children={"5"} style={styles.textLevel} />
-          </View>
-          <View style={styles.box}>
-            <View style={styles.headerBox}>
-              <AvatarPaper size={40} />
-              <Paragraph children="Enesto Howel" style={styles.textName} />
-            </View>
-            <Paragraph children={"19,201"} style={styles.pointBox} />
-          </View>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={styles.level}>
-            {/* <Image source={up_arrow} style={{width: 10, height: 10}} />
-            <Paragraph children={"6"} style={styles.textLevel} />
-          </View>
-          <View style={styles.box}>
-            <View style={{ paddingLeft: 10 }}>
-              <AvatarPaper size={40} />
-            </View>
-            <View style={{ paddingRight: 15 }}>
-              <Paragraph children={"19,100"} />
-            </View>
-          </View>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={styles.level}>
-            {/* <Image source={up_arrow} style={{width: 10, height: 10}} />
-            <Paragraph children={"7"} style={styles.textLevel} />
-          </View>
-          <View style={styles.box}>
-            <View style={{ paddingLeft: 10 }}>
-              <AvatarPaper size={40} />
-            </View>
-            <View style={{ paddingRight: 15 }}>
-              <Paragraph children={"17,112"} />
-            </View>
-          </View>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={styles.level}>
-            {/* <Image source={up_arrow} style={{width: 10, height: 10}} /> 
-            <Paragraph children={"8"} style={styles.textLevel} />
-          </View>
-          <View style={styles.box}>
-            <View style={{ paddingLeft: 10 }}>
-              <AvatarPaper size={40} />
-            </View>
-            <View style={{ paddingRight: 15 }}>
-              <Paragraph children={"16,000"} />
-            </View>
-          </View>
-        </View> */}
       </View>
 
       <LoadingPage loading={isLoading} />

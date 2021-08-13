@@ -30,12 +30,12 @@ export default class WebService {
   static getListCurrentPublic = () => {
     return api.get(url.getListCurrent);
   }
-  static updateContentOnCourse = async (id, data) => {
-    return api.postFormData(`/courses?id=${id}`, data, "PUT")
-  }
   // static updateContentOnCourse = async (id, data) => {
-  //   return api.postFormData(`/courses/set-contents`, { id, data }, "PUT")
+  //   return api.postFormData(`/courses?id=${id}`, data, "PUT")
   // }
+  static updateContentOnCourse = async (id, data) => {
+    return api.put(`/courses/set-contents/${id}`, { data: data._parts })
+  }
 
   static getCourses = async () => {
     return api.get(url.getCoursesPrivate);

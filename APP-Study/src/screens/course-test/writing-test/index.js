@@ -14,7 +14,7 @@ import { change_alias, getErrorMessage } from "../../../untils/helper";
 const WritingTestScreen = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [user, setUser] = useState(null);
-  const [text, setText] = useState('野菜');
+  const [text, setText] = useState('');
   const [current, setCurrent] = useState(null);
   const [dataSubmit, setDataSubmit] = useState([]);
 
@@ -25,8 +25,8 @@ const WritingTestScreen = ({ navigation }) => {
 
   const finishTest = async value => {
     const score = dataSubmit?.filter((item) => item.rightAnwser === 1).length;
-    
-    if(current.index === data.length - 1) {
+
+    if (current.index === data.length - 1) {
       const body = {
         topic: navigation.getParam('idCourse'),
         contents: value
@@ -34,19 +34,19 @@ const WritingTestScreen = ({ navigation }) => {
 
       try {
         const res = await webservice.setHistory(body);
-        navigation.navigate('FinishTestScreen', { 
+        navigation.navigate('FinishTestScreen', {
           idCourse: navigation.getParam('idCourse'),
           score,
           count: data.length
         });
-        
-      } catch(error) {
+
+      } catch (error) {
         showMessage({
           message: getErrorMessage(error),
           type: "danger",
         });
       }
-      
+
       return;
       // Call api
     }
@@ -62,7 +62,7 @@ const WritingTestScreen = ({ navigation }) => {
 
     const textCorrect = correct[correct.length - 1] || undefined;
 
-    if(textSubmit === textCorrect) {
+    if (textSubmit === textCorrect) {
       dataSubmit.push({ content: current.course._id, rightAnwser: 1 })
     }
     else {
@@ -70,6 +70,7 @@ const WritingTestScreen = ({ navigation }) => {
     };
 
     setDataSubmit(dataSubmit);
+    setText('')
     finishTest(dataSubmit)
   }
 
@@ -78,7 +79,7 @@ const WritingTestScreen = ({ navigation }) => {
       const response = await webservice.getDetailCourses(id);
       setData(response.contents);
       setCurrent({ course: response?.contents[0], index: 0 })
-    } catch(error) {
+    } catch (error) {
       showMessage({
         message: getErrorMessage(error),
         type: "danger",
@@ -89,7 +90,7 @@ const WritingTestScreen = ({ navigation }) => {
   useEffect(() => {
     getData(navigation.getParam('idCourse'));
   }, [navigation.getParam('idCourse')])
-  
+
   return (
     <ViewVertical style={{
       flex: 1,
@@ -119,12 +120,12 @@ const WritingTestScreen = ({ navigation }) => {
         <ViewVertical style={styles.bodyContainer}>
           <ViewVertical style={styles.boxContainer}>
             <Text style={styles.boxText}>{current?.course?.text}</Text>
-            <Progress.Bar progress={(current?.index / data?.length) || 0} width={300} style={styles.progress} color={'#2C6694'}/>
+            <Progress.Bar progress={(current?.index / data?.length) || 0} width={300} style={styles.progress} color={'#2C6694'} />
           </ViewVertical>
-          <Input 
+          <Input
             placeholder='Từ này nghĩa là'
             inputContainerStyle={styles.inputText}
-            // containerStyle={styles.inputText} 
+            value={text}
             onChangeText={value => setText(value)}
             inputStyle={styles.inputStyle}
             onSubmitEditing={onSubmit}

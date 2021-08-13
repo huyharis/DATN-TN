@@ -163,25 +163,6 @@ export default class GetCourse extends Component {
           }
           leftAction={() => navigate(params.go_back_key)}
           actionRight={[
-            // {
-            //   // component: <BadgedIcon type="ionicon" name="md-notifications" color={"#fff"} style={styles.icon}/>,
-            //   component: (
-            //     <Image source={ic_notifications} style={styles.icon} />
-            //   ),
-            //   action: () => navigation.navigate("Notifications"),
-            //   styleTouchable: {
-            //     top: 9,
-            //   },
-            // },
-            // {
-            //   component: (
-            //     <Avatar rounded source={{ uri: user?.avatar }} size="small" />
-            //   ),
-            //   action: () => navigation.navigate("Profile"),
-            //   styleTouchable: {
-            //     top: 9,
-            //   },
-            // },
             data?.type === 'private' && {
               // component: <BadgedIcon type="ionicon" name="md-notifications" color={"#fff"} style={styles.icon}/>,
               component: <Image source={ic_share} style={Styles.icon} />,

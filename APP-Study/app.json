@@ -31,7 +31,6 @@
     "android": {
       "package": "com.hcmute.japanese",
       "versionCode": 1
-    },
-    "plugins": ["@react-native-voice/voice"]
+    }
   }
 }
