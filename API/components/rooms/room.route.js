@@ -4,10 +4,12 @@ const RoomChatModel = require("../rooms/room.model");
 
 router.get("/getRoomChatById", async (req, res) => {
   try {
-    let { userId, partnerId } = req.query;
-    let getData = await RoomChatModel.findOne({ users: partnerId }).populate("message.users");
-    // let getData = await RoomChatModel.find({ users: { $or: [userId, partnerId] } }).populate("message.users");
-
+    const { userId, partnerId } = req.query;
+    let getData;
+    getData = await RoomChatModel.findOne({ users: { $in: [[userId, partnerId]] } }).populate("message.users");
+    if (getData?.message?.length === 0) {
+      getData = await RoomChatModel.findOne({ users: { $in: [[partnerId, userId]] } }).populate("message.users");
+    }
     if (getData) {
       res.json({
         dataRoom: getData,
