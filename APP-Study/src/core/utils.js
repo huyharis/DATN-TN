@@ -13,6 +13,12 @@ export const passwordValidator = password => {
 
   return '';
 };
+export const rePasswordValidator = password => {
+  if (!password || password.length <= 0) return 'Repassword cannot be empty.';
+  if (password.length < 6) return 'Repassword must be at least 6 characters.';
+
+  return '';
+};
 
 export const nameValidator = name => {
   if (!name || name.length <= 0) return 'Name cannot be empty.';

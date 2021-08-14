@@ -13,6 +13,7 @@ import BackButton from "../../components/BackButton";
 import {
   emailValidator,
   passwordValidator,
+  rePasswordValidator,
   usernameValidator,
 } from "../../core/utils";
 // import * as UserAPI from "../services/apiUser";
@@ -30,13 +31,13 @@ const Register = ({ navigation }) => {
     const usernameError = usernameValidator(username.value);
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
-    const rePasswordError = passwordValidator(rePassword.value);
+    const rePasswordError = rePasswordValidator(rePassword.value);
 
     if (emailError || passwordError || rePasswordError || usernameError) {
       setUsername({ ...username, error: usernameError });
       setEmail({ ...email, error: emailError });
       setPassword({ ...password, error: passwordError });
-
+      setRePassword({ ...rePassword, error: rePasswordError })
       return;
     }
     if (rePassword.value !== password.value) {
@@ -50,14 +51,6 @@ const Register = ({ navigation }) => {
       password: password.value,
     })
       .then(({ message, success }) => {
-        // if (!success) {
-        //   Alert.alert("Error", JSON.stringify(message || "Lỗi không xác định"));
-        //   showMessage({
-        //     message: JSON.stringify(message || "Lỗi không xác định"),
-        //       type: "danger"
-        //   });
-        //   return;
-        // }
         showMessage({
           message: "Đăng kí thành công",
           type: "success"
