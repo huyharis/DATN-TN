@@ -111,7 +111,7 @@ export default class WebService {
   }
 
   static joinRoom = (params) => {
-    return api.get(url.joinRoom, params)
+    return api.get(`${url.joinRoom}?userId=${params[0]}&partnerId=${params[1]}`)
   }
 
   static addMessage = (body) => {
