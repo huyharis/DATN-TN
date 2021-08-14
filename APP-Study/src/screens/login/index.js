@@ -54,54 +54,6 @@ const Login = ({ navigation }) => {
   };
 
 
-  const _handleFacebookLogin = async () => {
-    try {
-      await Facebook.initializeAsync("2516568351918071");
-      const {
-        type,
-        token,
-        expires,
-        permissions,
-        declinedPermissions
-      } = await Facebook.logInWithReadPermissionsAsync("2516568351918071", {
-        permissions: ["public_profile", "email"]
-      });
-
-      if (type === "success") {
-        // Get the user's name using Facebook's Graph API
-        const response = await fetch(
-          `https://graph.facebook.com/me?access_token=${token}&fields=id,name,email,picture.type(large)`
-        );
-        const profile = await response.json();
-        const { error } = profile;
-        if (error) {
-          Alert.alert('Error', error.message);
-          return;
-        }
-
-        const { data } = profile.picture;
-
-        const body = {
-          email: profile.email,
-          id: profile.id,
-          name: profile.name,
-          avatar: data.url
-        }
-        dispatch(LoginACtion.loginSocial(body));
-        // await Token.save(token)
-
-        alert("Logged in!", `Hi ${profile.name}!`);
-        navigation.navigate("App");
-
-        return;
-      } else {
-        // type === 'cancel'
-      }
-    } catch ({ message }) {
-      alert(`Facebook Login Error: ${message}`);
-    }
-  };
-
   return (
     <Background blurRadius={0.5}>
       <View style={styles.container}>

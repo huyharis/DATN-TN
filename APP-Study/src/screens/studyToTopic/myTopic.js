@@ -17,6 +17,7 @@ import { ic_arrow_back, banner } from "../../assets";
 import webservice from "../../services";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { useDebounce } from "../../hook/debouncedHook";
+import { hostname } from "../../services/host";
 
 const MyTopicScreen = ({ navigation }) => {
   const [data, setData] = useState([]);
@@ -167,7 +168,7 @@ const MyTopicScreen = ({ navigation }) => {
                     leftElement={
                       <Image
                         source={{
-                          uri: `http://192.168.1.196:3000/api/avatars/${item.avatar}`,
+                          uri: `${hostname}/api/avatars/${item.avatar}`,
                         }}
                         style={styles.imageItem}
                       />
@@ -208,7 +209,7 @@ const MyTopicScreen = ({ navigation }) => {
                     leftElement={
                       <Image
                         source={{
-                          uri: `http://192.168.1.196:3000/api/avatars/${item.avatar}`,
+                          uri: `${hostname}/api/avatars/${item.avatar}`,
                         }}
                         style={styles.imageItem}
                       />
